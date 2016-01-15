@@ -1,6 +1,6 @@
 ## Step 1 - Making the User model   
 
-1. ./tests.py, the first file 
+### 1. ./tests.py, the first file 
 
 Now that we have an area for our tests (tests.py), we need 
 to figure out what these user objects are going to look 
@@ -34,7 +34,7 @@ Now that we have a test for the model creation, let's make
 the model in models.py ... 
 
 
-2. ./models.py, our second file
+### 2. ./models.py, our second file
     
  ```python
  
@@ -55,8 +55,7 @@ the model in models.py ...
 To make this first model, I went to the "Build A Social
 Network W/ Flask" course, "The User Model" video in the
 first section. For more explination on each piece of 
-the model, refer to "Using Databases In Python", section
-1.
+the model, refer to "Using Databases In Python", section 1.
 
 The datetime in the user model is of note, as we leave 
 off the paranthesis. This way, the date is taken from 
@@ -68,7 +67,7 @@ certain sorting and location properties of the model.
 The database attribute here, for instance, defines the 
 database this model is to be stored in.
 
-3. Correcting the test we didn't know how to make
+### 3. Correcting the test we didn't know how to make
 
 By now, I can see that I actually didn't know enough
 about creating the database to correctly write the 
@@ -159,7 +158,7 @@ database, and used it to replace the '__name__' setup
 in models.py. This exposes a method we can run a test 
 on for initialization of the database. 
 
-4. One or two frustrating days later...
+### 4. One or two frustrating days later...
 
 In learning, this will always happen. I've come to expect
 that when doing something in programming I'm unfamiliar 
@@ -230,7 +229,7 @@ So, with a total of twelve tests, all now passing, I run
 and get 100% test coverage on my models.py file. Not bad.
 I think we can move on to the next step from here...
 
-5. One last short note
+### 5. One last short note
 
 For anyone wondering "why not doctests?", as though doctests
 were even going to come close to 100% test coverage on this,
