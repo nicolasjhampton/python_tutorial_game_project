@@ -8,24 +8,24 @@ to practice various standards in the stack and get used to using
 a few coding strategies that are new to me. I have a couple of goals 
 for this project:
     
-    1.
-    
-    I want to document my thought process throughout in az tutorial 
-    fashion.
-    
-    2.
-    
-    This will be a test-driven development process. A test will be
-    written before every piece of code.
-    
-    3.
-    
-    At every opportunity, I'll use a functional approach to problems.
-    
-    4.
-    
-    When time is available, code written in python will be translated
-    to javascript, and vice versa.
+1.
+
+I want to document my thought process throughout in az tutorial 
+fashion.
+
+2.
+
+This will be a test-driven development process. A test will be
+written before every piece of code.
+
+3.
+
+At every opportunity, I'll use a functional approach to problems.
+
+4.
+
+When time is available, code written in python will be translated
+to javascript, and vice versa.
    
 ### Tools
     
@@ -41,32 +41,32 @@ Javascript courses, as well as lessons by Guil Hernandez in the CSS
 courses. As my focus this time is on the back-end, however, these
 references may be fewer and farther between.
 
-    1.
-    
-    I'll use doc strings and the unittests library for everything.
-    
-    Refer to Python Testing
+1.
 
-    2.
+I'll use doc strings and the unittests library for everything.
 
-    I'll be building the back-end using Python with Flask and WTForms,
-    sacrificing real-time updates for routes and form validations.
-    
-    Refer to Flask Basics
+Refer to Python Testing
 
-    3.
+2.
 
-    I'll store all persistant data in a SQL database,
-    making models for every user and game.
-    
-    Refer to Using Databases In Python & Build A Social Network W/ Flask
-    
-    4.
+I'll be building the back-end using Python with Flask and WTForms,
+sacrificing real-time updates for routes and form validations.
 
-    I'm going to use the character builder, Hack-&-Slash, and Dungeon 
-    game exercises we've already built in the Python courses. 
-    
-    Refer to Object-Oriented Python, Python Collections, and Flask Basics
+Refer to Flask Basics
+
+3.
+
+I'll store all persistant data in a SQL database,
+making models for every user and game.
+
+Refer to Using Databases In Python & Build A Social Network W/ Flask
+
+4.
+
+I'm going to use the character builder, Hack-&-Slash, and Dungeon 
+game exercises we've already built in the Python courses. 
+
+Refer to Object-Oriented Python, Python Collections, and Flask Basics
 
 ### Start
     
