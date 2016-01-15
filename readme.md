@@ -8,7 +8,7 @@ to practice various standards in the stack and get used to using
 a few coding strategies that are new to me. I have a couple of goals 
 for this project:
     
-1. I want to document my thought process throughout in az tutorial fashion.
+1. I want to document my thought process throughout in a tutorial/blog fashion.
 
 2. This will be a test-driven development process. A test will be written before every piece of code.
 
