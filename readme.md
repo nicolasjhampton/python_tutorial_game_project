@@ -31,22 +31,26 @@ Javascript courses, as well as lessons by Guil Hernandez in the CSS
 courses. As my focus this time is on the back-end, however, these
 references may be fewer and farther between.
 
-1. I'll use doc strings and the unittests library for everything.
+1. 
+I'll use doc strings and the unittests library for everything.
 
 Refer to Python Testing
 
 
-2. I'll be building the back-end using Python with Flask and WTForms, sacrificing real-time updates for routes and form validations.
+2. 
+I'll be building the back-end using Python with Flask and WTForms, sacrificing real-time updates for routes and form validations.
 
 Refer to Flask Basics
 
 
-3. I'll store all persistant data in a SQL database, making models for every user and game.
+3. 
+I'll store all persistant data in a SQL database, making models for every user and game.
 
 Refer to Using Databases In Python & Build A Social Network W/ Flask
 
 
-4. I'm going to use the character builder, Hack-&-Slash, and Dungeon game exercises we've already built in the Python courses. 
+4. 
+I'm going to use the character builder, Hack-&-Slash, and Dungeon game exercises we've already built in the Python courses. 
 
 Refer to Object-Oriented Python, Python Collections, and Flask Basics
 
