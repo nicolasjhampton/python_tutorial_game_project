@@ -35,7 +35,7 @@ references may be fewer and farther between.
  
     I'll use doc strings and the unittests library for everything.
 
-    Refer to Python Testing
+    - Refer to Python Testing
 
 
 2. 
@@ -43,7 +43,7 @@ references may be fewer and farther between.
     I'll be building the back-end using Python with Flask and WTForms, 
     sacrificing real-time updates for routes and form validations.
 
-    Refer to Flask Basics
+    - Refer to Flask Basics
 
 
 3. 
@@ -51,7 +51,7 @@ references may be fewer and farther between.
     I'll store all persistant data in a SQL database, making models for 
     every user and game.
 
-    Refer to Using Databases In Python & Build A Social Network W/ Flask
+    - Refer to Using Databases In Python & Build A Social Network W/ Flask
 
 
 4. 
@@ -59,13 +59,13 @@ references may be fewer and farther between.
     I'm going to use the character builder, Hack-&-Slash, and Dungeon game 
     exercises we've already built in the Python courses. 
 
-    Refer to Object-Oriented Python, Python Collections, and Flask Basics
+    - Refer to Object-Oriented Python, Python Collections, and Flask Basics
 
 
 ### Start
     
 Without further ado, I'm going to make a file called tests.py, refer to 
-Python Testing, and get started. 
+Python Testing, and [get started](https://github.com/nicolasjhampton/python_tutorial_game_project/blob/master/step1.md). 
 
 
 
