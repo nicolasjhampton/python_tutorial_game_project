@@ -20,13 +20,25 @@ for this project:
 ### Tools
     
 First, this project will be built as a companion to various treehouse
-courses I've taken. I intend to combine several smaller, seperate 
-game-oriented projects presented by Kenneth Love in the Python 
-courses, enhancing their performance and implementations along the
-way.
+courses I've taken. This whole project is designed to go with the lessons
+and classes from [Team Treehouse](www.teamtreehouse.com). I intend to 
+combine several smaller, seperate game-oriented projects presented by 
+Kenneth Love in the Python courses, enhancing their performance and 
+implementations along the way.
+
+If you haven't heard of Treehouse and want to follow along, I highly
+recommend buying an inexpensive membership, as most of what I'll write
+here is glued together with classes from them.
+
+If you live in Multnomah County, you can go to [Code Oregon](www.codeoregon.org)
+and sign up for a free membership like I did. But if you're not, I found
+the classes so good that I bought a membership for by younger brother
+in Michigan anyways, so I recommend highly that you do so. Special thanks
+to Kenneth Love for greenlighting this blog, and we'll be careful not to
+overlap any code challenges in those classes for students.
 
 Once I start on the front-end side of this project, I'll be referring
-to various lessons by Andrew Chalkers and Huston Hedinger in the
+to various lessons by Andrew Chalkley and Huston Hedinger in the
 Javascript courses, as well as lessons by Guil Hernandez in the CSS
 courses. As my focus this time is on the back-end, however, these
 references may be fewer and farther between.
@@ -60,6 +72,8 @@ references may be fewer and farther between.
     exercises we've already built in the Python courses. 
 
     - Refer to Object-Oriented Python, Python Collections, and Flask Basics
+    
+
 
 
 ### Start
