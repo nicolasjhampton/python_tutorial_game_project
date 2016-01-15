@@ -2,7 +2,7 @@
 
 ### 1. ./tests.py, the first file 
 
-Now that we have an area for our tests (tests.py), we need 
+Now that we have an area for our tests in [tests.py](https://github.com/nicolasjhampton/python_tutorial_game_project/blob/master/tests.py), we need 
 to figure out what these user objects are going to look 
 like.
 
@@ -31,7 +31,7 @@ and since I'm new to tests, I'm going to go with what I
 always do when I'm new to something, my best guess.
             
 Now that we have a test for the model creation, let's make 
-the model in models.py ... 
+the model in [models.py](https://github.com/nicolasjhampton/python_tutorial_game_project/blob/master/models.py) ... 
 
 
 ### 2. ./models.py, our second file
@@ -181,8 +181,8 @@ field retrictions, such as max_lengths for field entries
 and unique field requirements.
 
 SQLite3 DOESN'T THROW ERRORS FOR VARCHAR max_lengths!
-Thanks goes to Chris Freeman on the Treehouse forums for
-pointing this out to me in the docs.
+Thanks goes to Chris Freeman for pointing this doc out to me 
+in [the treehouse forums](https://teamtreehouse.com/community/writing-tests-for-the-orm).
 
 So, in order for our tests to work, we have to enforce 
 those length limits ourselves. We'll use the ```create_user```
