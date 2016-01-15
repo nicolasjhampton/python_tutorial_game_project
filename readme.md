@@ -28,7 +28,8 @@ implementations along the way.
 
 If you haven't heard of Treehouse and want to follow along, I highly
 recommend buying an inexpensive membership, as most of what I'll write
-here is glued together with classes from them.
+here is glued together with classes from them, and is meant for people
+looking how to start their own projects after having taken the courses.
 
 If you live in Multnomah County, you can go to [Code Oregon](www.codeoregon.org)
 and sign up for a free membership like I did. But if you're not, I found
@@ -39,7 +40,7 @@ overlap any code challenges in those classes for students.
 
 Once I start on the front-end side of this project, I'll be referring
 to various lessons by Andrew Chalkley and Huston Hedinger in the
-Javascript courses, as well as lessons by Guil Hernandez in the CSS
+[Javascript](https://teamtreehouse.com/library/topic:javascript) courses, as well as lessons by Guil Hernandez in the [CSS](https://teamtreehouse.com/library/topic:css)
 courses. As my focus this time is on the back-end, however, these
 references may be fewer and farther between.
 
@@ -47,7 +48,7 @@ references may be fewer and farther between.
  
     I'll use doc strings and the unittests library for everything.
 
-    - Refer to Python Testing
+    - Refer to [Python Testing](https://teamtreehouse.com/library/python-testing)
 
 
 2. 
@@ -55,7 +56,7 @@ references may be fewer and farther between.
     I'll be building the back-end using Python with Flask and WTForms, 
     sacrificing real-time updates for routes and form validations.
 
-    - Refer to Flask Basics
+    - Refer to [Flask Basics](https://teamtreehouse.com/library/flask-basics)
 
 
 3. 
@@ -63,7 +64,7 @@ references may be fewer and farther between.
     I'll store all persistant data in a SQL database, making models for 
     every user and game.
 
-    - Refer to Using Databases In Python & Build A Social Network W/ Flask
+    - Refer to [Using Databases In Python](https://teamtreehouse.com/library/using-databases-in-python) & [Build A Social Network W/ Flask](https://teamtreehouse.com/library/build-a-social-network-with-flask)
 
 
 4. 
@@ -71,7 +72,7 @@ references may be fewer and farther between.
     I'm going to use the character builder, Hack-&-Slash, and Dungeon game 
     exercises we've already built in the Python courses. 
 
-    - Refer to Object-Oriented Python, Python Collections, and Flask Basics
+    - Refer to [Object-Oriented Python](https://teamtreehouse.com/library/objectoriented-python), [Python Collections](https://teamtreehouse.com/library/python-collections), and [Flask Basics](https://teamtreehouse.com/library/flask-basics)
     
 
 
