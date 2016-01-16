@@ -63,6 +63,16 @@ class UserTableTests(unittest.TestCase):
     #     """Tests that a User entry can be recalled by email"""
     #     user = models.User.get(username="testUsername")
     #     self.assertEqual(user.password, 'testPassword')
+    
+    def test_password_hashed(self):
+        """Tests that any recalled password is not equal to the original password text (assumed hashed)"""
+        user = models.User.get(username="testUsername")
+        self.assertNotEqual(user.password, 'testPassword')
+        
+    def test_password_equality(self):
+        """Tests that any recalled password is not equal to the original password text (assumed hashed)"""
+        user = models.User.get(username="testUsername")
+        assert user.check_password('testPassword')
         
     
     #####################

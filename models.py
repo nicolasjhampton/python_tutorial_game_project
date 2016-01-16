@@ -1,7 +1,7 @@
 import datetime
 
-# Peewee convention is to make this very broad import
-from peewee import *
+from flask.ext.bcrypt import check_password_hash, generate_password_hash
+from peewee import * # Peewee convention is to make this very broad import
 
 # This will define the database to be connected to / created 
 DATABASE = SqliteDatabase('users.db')
@@ -14,40 +14,57 @@ class User(Model):
     email = CharField(unique=True)
     password = CharField(max_length=20)
     joined_at = DateTimeField(default=datetime.datetime.now)
+    invalidValueError = "email"
     
     class Meta:
         database = DATABASE
-    
+        
+    def hash_password(password):
+        """Generate new password hash"""
+        if password != None:
+            return generate_password_hash(password)
+  
+    def check_password(cls, password):
+        """Check user's password hash against input""" 
+        return check_password_hash(cls.password, password)
+        
+    def check_new_username_length(cls, username):
+        """Username length check"""
+        if len(username) > 3 and len(username) < 51:
+            return username
+        else:
+            cls.error = "username"
+            return None
+            
+    def check_new_password_length(cls, password):
+        """Password length check"""
+        if len(password) > 6 and len(password) < 20:
+            return password
+        else:
+            cls.error = "password"
+            return None
+
+
     @classmethod
     def create_user(cls, username, email, password):
         """Method to safely create a new User entry.
            Sqlite3 does not enforce character length
            limits on VARCHAR fields, so we have to 
            manually block and throw errors."""
-           
-        error = "email"
         
-        # Username length check
-        if(len(username) > 3 and len(username) < 51):
-            usernameChecked = username
-        else:
-            error = "username"
+        usernameChecked = cls.check_new_username_length(cls, username)
          
-        # Password length check    
-        if(len(password) > 6 and len(password) < 20):
-            passwordChecked = password
-        else:
-            error = "password"
-            
+        passwordChecked = cls.check_new_password_length(cls, password)
+        
         try:
             cls.create(
                 username=usernameChecked,
                 email=email,
-                password=passwordChecked)
+                password= cls.hash_password(passwordChecked))
         except IntegrityError:
             raise ValueError("User already exists")
         except UnboundLocalError:
-            raise ValueError("Invalid {}".format(error))
+            raise ValueError("Invalid {}".format(cls.invalidValueError))
             
              
 def initialize():
