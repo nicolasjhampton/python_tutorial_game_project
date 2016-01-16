@@ -1,4 +1,4 @@
-<img src="http://www.azquotes.com/picture-quotes/quote-just-keep-on-using-me-until-you-use-me-up-bill-withers-138-73-52.jpg">
+<img src="http://www.azquotes.com/picture-quotes/quote-just-keep-on-using-me-until-you-use-me-up-bill-withers-138-73-52.jpg" width="75%">
 
 ## Step 3 - Using This User Up...
 
