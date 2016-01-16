@@ -74,6 +74,23 @@ class UserTableTests(unittest.TestCase):
         user = models.User.get(username="testUsername")
         assert user.check_password('testPassword')
         
+        
+        
+    def test_login_property_exists(self):
+        """Tests that a User entry is created with a login property"""
+        user = models.User.get(email='testEmail@testEmail.com')
+        assert 'loggedin' in dir(user)
+        
+    def test_login_property_truthy(self):
+        """Tests that the login property is either True or False"""
+        user = models.User.get(email='testEmail@testEmail.com')
+        assert user.loggedin in [True, False]
+        
+    def test_user_id_property_exists(self):
+        """Tests that a User entry is created with a user_id property"""
+        user = models.User.get(email='testEmail@testEmail.com')
+        assert 'user_id' in dir(user)
+        
     
     #####################
     # Error tests

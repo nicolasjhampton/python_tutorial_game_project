@@ -294,3 +294,5 @@ contained inside of the object, it's only used for one
 purpose, and in general, I'm ok with it. Functional
 programming isn't the end all be all, just a guideline.
 In this case, I like the solution for the moment being.
+
+Now I can move on to [finishing this User class...](https://github.com/nicolasjhampton/python_tutorial_game_project/blob/master/step2.md)
