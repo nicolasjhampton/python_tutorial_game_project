@@ -1,4 +1,4 @@
-<video src="https://www.youtube.com/watch?v=dbN8jqDhHO8" width="50%">
+<video src="http://www.azquotes.com/picture-quotes/quote-just-keep-on-using-me-until-you-use-me-up-bill-withers-138-73-52.jpg">
 
 ## Step 3 - Using This User Up...
 
@@ -17,15 +17,15 @@ hash information to that database, the next step is
 
 So I'll...
 
-    *  I'll write a few tests (not sure how many, at least 2).
+    *  ...write a few tests (not sure how many, at least 2).
     
 We need...
 
-        - one to check a user id is present after user creation,
+        - ...one to check a user id is present after user creation...
         
-and
+and...
 
-        - another to check a login status (in or out) is present.
+        - ...another to check a login status (in or out) is present.
 
 I swear this gameplan almost writes itself! So, without 
 knowing anything about what it takes to login and logout, I
