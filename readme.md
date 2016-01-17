@@ -80,7 +80,7 @@ references may be fewer and farther between.
 ### Start
     
 Without further ado, I'm going to make a file called tests.py, refer to 
-Python Testing, and [get started](https://github.com/nicolasjhampton/python_tutorial_game_project/blob/master/step1.md). 
+Python Testing, and [get started](https://github.com/nicolasjhampton/python_tutorial_game_project/blob/master/blog/step1.md). 
 
 
 

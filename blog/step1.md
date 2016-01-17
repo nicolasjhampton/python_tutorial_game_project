@@ -239,7 +239,7 @@ get the doctests to work with PeeWee, and couldn't find anyone
 online who had anything to say about it, so if you know something
 let me know. I like those little inline tests that could! 
 
-[On to step 2...](https://github.com/nicolasjhampton/python_tutorial_game_project/blob/master/step2.md)
+[On to step 2...](https://github.com/nicolasjhampton/python_tutorial_game_project/blob/master/blog/step2.md)
     
     
     
