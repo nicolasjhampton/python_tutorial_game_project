@@ -27,7 +27,13 @@ and...
 
         - ...another to check a login status (in or out) is present.
 
-I swear this gameplan almost writes itself! So, without 
+I swear this gameplan almost writes itself! Wait, something's
+wrong. Let me just back up and correct something really quick...
+
+
+### 2. Writing tests for code you know nothing about
+
+So, without 
 knowing anything about what it takes to login and logout, I
 can reasonably assume that something like "logged in" would
 be a property of the ```User``` model that we create, most 
@@ -137,3 +143,311 @@ in [a video](https://teamtreehouse.com/library/build-a-social-network-with-flask
 With Flask" class. Remember that most of the modules we're
 using have to be installed with pip before we can import
 them, I'm just not going over it. 
+
+So, let's just take a snapshot of the top of the [models.py](https://github.com/nicolasjhampton/python_tutorial_game_project/blob/master/models.py)
+file as it should be now...you know, for posterity...
+
+```python
+
+import datetime
+
+from flask.ext.bcrypt import check_password_hash, generate_password_hash
+from peewee import * # Peewee convention is to make this very broad import
+
+# This will define the database to be connected to / created 
+DATABASE = SqliteDatabase('users.db')
+
+# User is based on the 'Model' class, as all our database 
+# objects will be.
+class User(Model):
+    """Database schema for the User table. All database objects descend from 'Model' class."""
+    username = CharField(max_length=50, unique=True)
+    email = CharField(unique=True)
+    password = CharField(max_length=20)
+    joined_at = DateTimeField(default=datetime.datetime.now)
+    invalidValueError = "email"
+    
+    class Meta:
+        database = DATABASE
+        
+```
+The first thing I'm going to do is import the ```UserMixin```
+from the flask-login module, then add the ```UserMixin``` 
+class as the first class of our User model.
+
+### 4. The UserMixin
+
+Kenneth goes over the UserMixin documentation in the video and 
+explains that what it's doing is pretty simple, but there's a 
+link to the [source code](http://flask-login.readthedocs.org/en/latest/_modules/flask_login.html#UserMixin), so we might as well 
+take a look at HOW simple...
+
+```python
+
+    class UserMixin(object):
+            '''
+            This provides default implementations for the methods that Flask-Login
+            expects user objects to have.
+            '''
+            @property
+            def is_active(self):
+                return True
+
+            @property
+            def is_authenticated(self):
+                return True
+
+            @property
+            def is_anonymous(self):
+                return False
+
+            def get_id(self):
+                try:
+                    return unicode(self.id)
+                except AttributeError:
+                    raise NotImplementedError('No `id` attribute - override `get_id`')
+
+            def __eq__(self, other):
+                '''
+                Checks the equality of two `UserMixin` objects using `get_id`.
+                '''
+                if isinstance(other, UserMixin):
+                    return self.get_id() == other.get_id()
+                return NotImplemented
+
+            def __ne__(self, other):
+                '''
+                Checks the inequality of two `UserMixin` objects using `get_id`.
+                '''
+                equal = self.__eq__(other)
+                if equal is NotImplemented:
+                    return NotImplemented
+                return not equal
+
+            if sys.version_info[0] != 2:  # pragma: no cover
+                # Python 3 implicitly set __hash__ to None if we override __eq__
+                # We set it back to its default implementation
+                __hash__ = object.__hash__
+
+```
+
+So, on the surface, pretty simple. We know a class can inherit
+more than one class, so all we're doing when we add this one 
+is adding the methods and properties that belong to the UserMixin 
+class to our model class. They're all pretty simple, once you 
+take a closer look at them. Let's go backwards:
+
+```python
+
+        if sys.version_info[0] != 2:  # pragma: no cover
+            # Python 3 implicitly set __hash__ to None if we override __eq__
+            # We set it back to its default implementation
+            __hash__ = object.__hash__
+
+```
+
+python 2 and python 3 handle equality between objects differently,
+thus this test. Nothing important really...
+
+```python
+
+        def __eq__(self, other):
+            '''
+            Checks the equality of two `UserMixin` objects using `get_id`.
+            '''
+            if isinstance(other, UserMixin):
+                return self.get_id() == other.get_id()
+            return NotImplemented
+
+        def __ne__(self, other):
+            '''
+            Checks the inequality of two `UserMixin` objects using `get_id`.
+            '''
+            equal = self.__eq__(other)
+            if equal is NotImplemented:
+                return NotImplemented
+            return not equal
+
+```
+
+these two definitions override the magic methods for equality and
+non-equality on the object. For more info, check out this tutorial 
+on [magic methods](http://www.rafekettler.com/magicmethods.html), pretty useful information. Basically, 
+we're just making sure that when we compare ```User``` objects, 
+we compare them by the ```user_id```. What ```user_id```, you might 
+ask...
+
+```python
+
+        def get_id(self):
+            try:
+                return unicode(self.id)
+            except AttributeError:
+                raise NotImplementedError('No `id` attribute - override `get_id`')
+
+```
+So, from what I can tell, this id, in our case, is actually 
+present before any of this ```UserMixin``` implementation. 
+It's the automatically added id field of the database entry, 
+which at this level the class can be fairly certain will be 
+present. If the ```user_id``` is not present, we'll get an error 
+asking us to modify the method to retrieve whatever we are 
+using to uniquely identify the User objects. Again, nothing 
+special, just a dependable way for the flask-login  module 
+to access each unique ```User``` object.
+
+```python
+
+        @property
+        def is_active(self):
+            return True
+
+        @property
+        def is_authenticated(self):
+            return True
+
+        @property
+        def is_anonymous(self):
+            return False
+
+```
+
+Do you ever get that urge to make something exceedingly simple
+very complex? Let's feed that urge now. Each one of these 
+"properties" (more in a second) are referring to special
+states we actually aren't going to use in this class. That's
+what Kenneth really goes over in this video. We wont be making
+anonymous users, but we could override this method to create 
+them if we wanted, and flask-login would know where to look 
+for info needed to implement them. All are users will be 
+authenticated (meaning we aren't going to send a text to 
+someone's phone for registration verification or anything 
+like that), and all users will be active at all times (meaning
+we wont be suspending accounts or requiring additional hoops 
+besides registration to get an account started). These could be 
+useful in other situations in which we cared, but we really 
+don't. Not today, at least.
+
+What's more fascinating to me here are the ```@property``` 
+decorators wrapping each of these functions. Check out the 
+[decorators workshop](https://teamtreehouse.com/library/python-decorators) for more information on these, 
+but the ```@property``` decorator is a builtin python 
+decorator. Really, it's just a function that takes a function 
+as an argument. Lots of languages can take functions as 
+arguments and return functions as computed values, but
+python has a special built-in syntax (or syntaxical sugar, 
+get used to that needless nickname) for decorators, as
+they can be pretty useful.
+
+In this case, the ```@property``` decorator (or function, 
+just think of it as a function) takes these functions as 
+arguments and turns them into namespaced properties on the 
+User object. We could write this a couple different ways 
+to show just how simple this really is...
+
+```python
+
+         #e.g. 1 - python decorator special syntax
+
+         @property
+         def is_anonymous(self):
+             return False
+
+         #############################################################
+
+         #e.g. 2 - the actual simple concept of a decorator function
+         #         is just a function that wraps another function
+         #         to add functionality
+
+         def is_anonymous(self): #we're going to wrap this function in the decorator
+            return False
+
+         is_anonymous = property(is_anonymous) # the decorator is just another function
+                                               # which takes a function and returns 
+                                               # a function that does more
+         
+         is_anonymous(self) #then we can run the enhanced function
+
+```
+
+See, nothing special really. Now, what does the ```@property```
+do, in particular? Well, from what I can tell, it defines 
+getters, setters, and deleters for the value of the original 
+function, and attaches it as a property of the object. 
+Basically, it makes a property. If you want more of a look, 
+[check it out](https://docs.python.org/2/howto/descriptor.html#properties). It looks like a lot of 
+recursive-curried-magic-knot-tying, but it's actually pretty 
+straight forward if you take the time to read the simple yet 
+confusing low level code.  
+
+### 4. Testing things we know, and refactoring a bit
+
+So, do we need to understand all that to use UserMixin? No,
+not at all. In fact, except as a learning tool, all that info
+overload was pretty useless, really. BUT, now we do know what 
+properties the tests have to look for. And we missed it! So 
+let's quick write those test...
+
+```python
+    
+     def test_user_id_exists(self):
+        """Tests that a User entry is created with a login property"""
+        user = models.User.get(email='testEmail@testEmail.com')
+        assert 'id' in dir(user)
+        
+     def test_get_id_exists(self):
+        """Tests that a User entry is created with a login property"""
+        user = models.User.get(email='testEmail@testEmail.com')
+        assert 'get_id' in dir(user)
+        
+     def test_get_id_result(self):
+        """Tests that a User entry is created with a login property"""
+        user = models.User.get(email='testEmail@testEmail.com')
+        assert str(user.id) == user.get_id()
+        
+ ```
+ 
+ So, we keep seeing this line in a lot of our newer tests...
+ 
+ ```python
+ 
+    user = models.User.get(email='testEmail@testEmail.com')
+    
+```
+
+So I've decided to factor this out into our setUp method, 
+so we don't have to write it into every test. Keep in mind
+that in order for all the tests to have access to this 
+variable, you have to attach it to the self reference of the
+class, like...
+
+```python
+
+    self.user = models.User.get(email='testEmail@testEmail.com')
+    
+```
+and then refer to it the same way, such as...
+
+```python
+
+    def test_get_id_result(self):
+        """Tests that a User entry's get_id method returns the user id for flask-login to use"""
+        assert str(self.user.id) == self.user.get_id()
+        
+```
+
+After a couple of test runs, I was able to modify all
+the tests and check for any possible false positives from
+the change. All good. 
+ 
+At this point, I think our last goal here...
+
+    - ...[writing] another [test] to check a login status (in or out) is present.
+    
+deserves to be pushed [into the next step...](https://github.com/nicolasjhampton/python_tutorial_game_project/blob/master/step4.md)
+
+(I mean, this was getting crowded, wasn't it?)
+
+
+
+
