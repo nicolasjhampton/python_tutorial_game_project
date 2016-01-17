@@ -137,7 +137,8 @@ will be represented. We also kept our expectations small
 and well separated. That's why I'm writing the tests first.
 
 So, all this login stuff is covered with a python module 
-called Flask-Login, specifically the [UserMixin](http://flask-login.readthedocs.org/en/latest/#your-user-class) class. For
+called Flask-Login, and that module requires all users 
+implement certain methods that come pre-packaged in the [UserMixin](http://flask-login.readthedocs.org/en/latest/#your-user-class) class. For
 Treehouse students out there, Kenneth goes over all of this 
 in [a video](https://teamtreehouse.com/library/build-a-social-network-with-flask/making-strong-users/the-usermixin-from-flasklogin) from the first section of "Build A Social Network
 With Flask" class. Remember that most of the modules we're
@@ -384,9 +385,11 @@ confusing low level code.
 
 So, do we need to understand all that to use UserMixin? No,
 not at all. In fact, except as a learning tool, all that info
-overload was pretty useless, really. BUT, now we do know what 
-properties the tests have to look for. And we missed it! So 
-let's quick write those test...
+overload was pretty useless, really. Basically, UserMixin is
+just a quick way to make sure our users have properties and
+methods flask-login needs to use. BUT, now we do know what 
+properties and methods the tests have to look for. And we 
+missed most of them! So let's quick write those tests...
 
 ```python
     
@@ -438,7 +441,11 @@ and then refer to it the same way, such as...
 
 After a couple of test runs, I was able to modify all
 the tests and check for any possible false positives from
-the change. All good. 
+the change. All good.
+
+We know, now that everything has a test (mostly, I'm at 93% coverage)
+that we have a secure User model that can be handled by 
+flask-login.
  
 At this point, I think our last goal here...
 
