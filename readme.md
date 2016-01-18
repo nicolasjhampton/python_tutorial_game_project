@@ -19,12 +19,10 @@ for this project:
    
 ### Tools
     
-First, this project will be built as a companion to various treehouse
-courses I've taken. This whole project is designed to go with the lessons
-and classes from [Team Treehouse](www.teamtreehouse.com). I intend to 
-combine several smaller, seperate game-oriented projects presented by 
-Kenneth Love in the Python courses, enhancing their performance and 
-implementations along the way.
+First, this project will be built as a companion to various [Treehouse](www.teamtreehouse.com)
+courses I've taken.  I intend to combine several smaller, seperate 
+game-oriented projects presented by Kenneth Love in the Python 
+courses, enhancing their performance and implementations along the way.
 
 If you haven't heard of Treehouse and want to follow along, I highly
 recommend buying an inexpensive membership, as most of what I'll write
@@ -46,15 +44,16 @@ references may be fewer and farther between.
 
 1. 
  
-    I'll use doc strings and the unittests library for everything.
+    I'll be using doctests and the unittests library for testing.
 
     - Refer to [Python Testing](https://teamtreehouse.com/library/python-testing)
 
 
 2. 
 
-    I'll be building the back-end using Python with Flask and WTForms, 
-    sacrificing real-time updates for routes and form validations.
+    The back-end will be built using Python with Flask and WTForms, 
+    sacrificing the real-time abilities of sockets for routes and 
+    form validations.
 
     - Refer to [Flask Basics](https://teamtreehouse.com/library/flask-basics)
 
