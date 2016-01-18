@@ -136,9 +136,9 @@ password entry is for sure a hashed password, not just
 something not equal to the original text, we can, but 
 that's a level of detail we don't have to start with.
 
-> <img width="20%" alt="Brown,r time macine60" src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/3d/Brown%2Cr_time_macine60.jpg/512px-Brown%2Cr_time_macine60.jpg"/>
->
+> <img width="20%" alt="Licensed under Public Domain via Wikimedia Commons - https://commons.wikimedia.org/wiki/File:Brown,r_time_macine60.jpg#/media/File:Brown,r_time_macine60.jpg" src="the_time_machine.jpg"/>
 > *<b>But in the future...</b>*
+>
 > Me and Doc Brown came back to let you guys know that the
 > password hashes bcrypt uses are strings that start with 
 > '$2a$', so if you really want to check that password
