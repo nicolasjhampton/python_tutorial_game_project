@@ -35,7 +35,7 @@ not passing. Since I'm new to tests, I'm going to go with what I
 always do when I'm new to something, my best guess.
 
 
-> <img src="our_fearless_leader.png" width="10%">
+> <img alt="By New York : Underwood & Underwood, publishers (US-LOC) [Public domain], via Wikimedia Commons, https://commons.wikimedia.org/wiki/File%3ADunce_cap_from_LOC_3c04163u.png" src="our_fearless_leader.png" width="10%">
 > *<b>Things our fearless leader doesn't know yet...</b>*
 >
 > - The class must inherit from the ```unittest.TestCase``` class
@@ -71,7 +71,7 @@ Network W/ Flask" course, ["The User Model"](https://teamtreehouse.com/library/b
 first section. For more explination on each piece of 
 the model, refer to section 1 of ["Using Databases In Python"](https://teamtreehouse.com/library/using-databases-in-python).
 
-> <img src="our_fearless_leader.png" width="10%">
+> <img alt="By New York : Underwood & Underwood, publishers (US-LOC) [Public domain], via Wikimedia Commons, https://commons.wikimedia.org/wiki/File%3ADunce_cap_from_LOC_3c04163u.png" src="our_fearless_leader.png" width="10%">
 > *<b>Things our fearless leader doesn't know yet...</b>*
 >
 > For our ORM (PeeWee), each class attribute is a field in 
@@ -188,7 +188,7 @@ that user, delete that user, and then close the database.
         
 ```
 
-> <img src="our_fearless_leader.png" width="10%">
+> <img alt="By New York : Underwood & Underwood, publishers (US-LOC) [Public domain], via Wikimedia Commons, https://commons.wikimedia.org/wiki/File%3ADunce_cap_from_LOC_3c04163u.png" src="our_fearless_leader.png" width="10%">
 > *<b>Things our fearless leader doesn't know yet...</b>*
 >
 > Looking back at this from later in the project, I didn't quite understand 
