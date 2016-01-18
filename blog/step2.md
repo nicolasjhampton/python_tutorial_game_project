@@ -74,7 +74,7 @@ in some of the details in our second step:
 
 Well, it seems, having started this project with learning 
 test-driven development in mind, that I may have learned 
-something already. The simplest start to this is the User.
+something already. The simplest start to this is the ```User```.
 Once I've written a test for the most basic kind of user,
 then I can add a test for a simple improvement. The simplest
 improvement I see is a simple change of password format,
@@ -110,15 +110,16 @@ in my last few commits:
     
 ```
 
-Originally, I was being an idiot. Of course we don't 
-want to be able to search for our use by their password
-(unless we were doing research on password usage and security).
-So, we're going to completely rewrite this test to make
-sure that the password passed into our ```create_user```
-method is NOT equal to the password that ends up in the
-database. Well heck, we might be able to write a test 
-for that without understanding anything about how to make it
-pass (unbelievably for the novice, that's the point).
+Originally, I was being an idiot (I can say it!). 
+Of course we don't want to be able to search for our use 
+by their password (unless we were doing research on 
+password usage and security). So, we're going to completely
+rewrite this test to make sure that the password passed into
+our ```create_user``` method is NOT equal to the password 
+that ends up in the database. Well heck, we might be able to 
+write a test for that without understanding anything about 
+how to make it pass (unbelievably for the novice, that's 
+the point).
 
 ```python
 
@@ -134,6 +135,13 @@ more, if we want to add checks to make sure that the
 password entry is for sure a hashed password, not just
 something not equal to the original text, we can, but 
 that's a level of detail we don't have to start with.
+
+> <img width="10%" alt="Brown,r time macine60" src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/3d/Brown%2Cr_time_macine60.jpg/512px-Brown%2Cr_time_macine60.jpg"/>
+> *<b>But in the future</b>*
+> Me and Doc Brown came back to let you guys know that the
+> password hashes bcrypt uses are strings that start with 
+> '$2a$', so if you really want to check that password
+> integrity...buy a Delorean.
 
 Once we have a test making sure the password is hashed,
 we want a test checking that we can compare a hashed
