@@ -34,7 +34,7 @@ will somehow evaluate to "True" for passing or "False" for
 not passing. Since I'm new to tests, I'm going to go with what I 
 always do when I'm new to something, my best guess.
 
-> Things our fearless leader doesn't know yet...
+> *Things our fearless leader doesn't know yet...*
 >
 > - The class must inherit from the ```unittest.TestCase``` class
 >
@@ -69,7 +69,7 @@ Network W/ Flask" course, ["The User Model"](https://teamtreehouse.com/library/b
 first section. For more explination on each piece of 
 the model, refer to section 1 of ["Using Databases In Python"](https://teamtreehouse.com/library/using-databases-in-python).
 
-> Things our fearless leader doesn't know yet...
+> *Things our fearless leader doesn't know yet...*
 >
 > For our ORM (PeeWee), each class attribute is a field in 
 > our database, in this case our Sqlite3 database that the
