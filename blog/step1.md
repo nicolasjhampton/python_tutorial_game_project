@@ -35,14 +35,14 @@ not passing. Since I'm new to tests, I'm going to go with what I
 always do when I'm new to something, my best guess.
 
 
-> <img src="our_fearless_leader.png" width="10%" border-radius="8px">
+> <img src="our_fearless_leader.png" width="10%">
 > *<b>Things our fearless leader doesn't know yet...</b>*
 >
 > - The class must inherit from the ```unittest.TestCase``` class
 >
 > - Each test has access to the class' ```self``` variable (useful later)
 >
-> - All unit tests must begin with "test" in the name for python's unittest module
+> - All unit tests must begin with "test" in the name for python's ```unittest``` module
             
 Now that we have a test for the model creation, let's make 
 the model in [models.py](https://github.com/nicolasjhampton/python_tutorial_game_project/blob/766b977a2dfab5522dc5cae58d46f1c73a3849e4/models.py) ... 
@@ -71,6 +71,7 @@ Network W/ Flask" course, ["The User Model"](https://teamtreehouse.com/library/b
 first section. For more explination on each piece of 
 the model, refer to section 1 of ["Using Databases In Python"](https://teamtreehouse.com/library/using-databases-in-python).
 
+> <img src="our_fearless_leader.png" width="10%">
 > *<b>Things our fearless leader doesn't know yet...</b>*
 >
 > For our ORM (PeeWee), each class attribute is a field in 
@@ -187,6 +188,7 @@ that user, delete that user, and then close the database.
         
 ```
 
+> <img src="our_fearless_leader.png" width="10%">
 > *<b>Things our fearless leader doesn't know yet...</b>*
 >
 > Looking back at this from later in the project, I didn't quite understand 

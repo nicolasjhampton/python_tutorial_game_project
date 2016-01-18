@@ -42,9 +42,9 @@ the 'game', I'd say you're half right. Some of my biggest
 unknowns were in working with the ORM and testing, AKA 
 things I haven't tried on my own before. Some parts, like 
 routing and server setup, will go by really fast. I just
-try not to be in a rush. A lot of this is teaching me things
+try not to be in a rush. A lot of this is teaching myself things
 I started this project to learn in the first place. Try to 
-be kind to yourself.
+be kind to yourself, we're all fearless leaders out here...
 
 ### 2. Mapping my next step
 
@@ -64,10 +64,10 @@ in some of the details in our second step:
             - one to check a user id is present after user creation
             - another to check a login status (in or out) is present 
             
-> "So Nic" you say. 
-> "Yes, gentle reader?" I respond.
-> "Why are you doing these steps in the exact opposite order as the ["Build A Social Network"](https://teamtreehouse.com/library/build-a-social-network-with-flask) course?"
-> "Good question, you studious frog you!", I say.
+*"So Nic"* you say. 
+*"Yes, gentle reader?"*
+*"Why are you doing these steps in the exact opposite order as the ["Build A Social Network"](https://teamtreehouse.com/library/build-a-social-network-with-flask) course?"* you ask.
+*"Astute question, you studious frog you!"* I'd say.
 
 Well, it seems, having started this project with learning 
 test-driven development in mind, that I may have learned 
