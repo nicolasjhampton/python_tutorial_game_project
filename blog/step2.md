@@ -65,8 +65,11 @@ in some of the details in our second step:
             - another to check a login status (in or out) is present 
             
 *"So Nic"* you say. 
+
 *"Yes, gentle reader?"*
+
 *"Why are you doing these steps in the exact opposite order as the ["Build A Social Network"](https://teamtreehouse.com/library/build-a-social-network-with-flask) course?"* you ask.
+
 *"Astute question, you studious frog you!"* I'd say.
 
 Well, it seems, having started this project with learning 
