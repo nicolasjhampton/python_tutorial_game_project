@@ -69,7 +69,7 @@ Network W/ Flask" course, ["The User Model"](https://teamtreehouse.com/library/b
 first section. For more explination on each piece of 
 the model, refer to section 1 of ["Using Databases In Python"](https://teamtreehouse.com/library/using-databases-in-python).
 
-> *Things our fearless leader doesn't know yet...*
+> *<b>Things our fearless leader doesn't know yet...</b>*
 >
 > For our ORM (PeeWee), each class attribute is a field in 
 > our database, in this case our Sqlite3 database that the
@@ -185,8 +185,10 @@ that user, delete that user, and then close the database.
         
 ```
 
-    - Of note: looking back at this from later in the project, I didn't quite understand 
-      connecting and closing the connection yet. Derp, derp, whatev's, let's wire it up...
+> *<b>Things our fearless leader doesn't know yet...</b>*
+>
+> Looking back at this from later in the project, I didn't quite understand 
+> connecting and closing the connection yet. Derp, derp, whatev's, let's wire it up...
     
 I also discovered the initialize function for the 
 database, and used it to replace the ```'__name__'``` setup
@@ -201,7 +203,8 @@ with, I'll hit something that I can't solve/infuriates
 me for at least a few days, if not a week. Don't be afraid
 of this time. Almost everything I'm strong in is because
 I learned it while I broke something that took me a week
-to fix while not knowing what I'm doing. 
+to fix while not knowing what I'm doing (Told you I didn't
+know what I was doing...). 
 
 In this case, we had a lot of pieces that we we're 90%
 sure worked alone, but when we combined them, didn't work
