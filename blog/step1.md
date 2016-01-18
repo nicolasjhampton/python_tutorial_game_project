@@ -35,12 +35,12 @@ not passing. Since I'm new to tests, I'm going to go with what I
 always do when I'm new to something, my best guess.
 
 > Of Note:
-
-- The class must inherit from the ```unittest.TestCase``` class
-
-- Each test has access to the class' ```self``` variable (useful later)
-
-- All unit tests must begin with "test" in the name for python's unittest module
+>
+> - The class must inherit from the ```unittest.TestCase``` class
+>
+> - Each test has access to the class' ```self``` variable (useful later)
+>
+> - All unit tests must begin with "test" in the name for python's unittest module
             
 Now that we have a test for the model creation, let's make 
 the model in [models.py](https://github.com/nicolasjhampton/python_tutorial_game_project/blob/766b977a2dfab5522dc5cae58d46f1c73a3849e4/models.py) ... 
