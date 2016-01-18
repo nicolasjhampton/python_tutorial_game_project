@@ -34,7 +34,7 @@ will somehow evaluate to "True" for passing or "False" for
 not passing. Since I'm new to tests, I'm going to go with what I 
 always do when I'm new to something, my best guess.
 
-> Of Note:
+> Things our fearless leader doesn't know yet...
 >
 > - The class must inherit from the ```unittest.TestCase``` class
 >
@@ -69,15 +69,17 @@ Network W/ Flask" course, ["The User Model"](https://teamtreehouse.com/library/b
 first section. For more explination on each piece of 
 the model, refer to section 1 of ["Using Databases In Python"](https://teamtreehouse.com/library/using-databases-in-python).
 
-    For our ORM (PeeWee), each class attribute is a field in 
-    our database, in this case our Sqlite3 database that the
-    PeeWee ORM sits on top of. Which class we assign to the
-    attribute defines what type of field is created in the 
-    database, e.g. ```CharField``` in the ORM becomes
-    ```VARCHAR``` in the SQL database, ```DateTimeField```
-    becomes ```DATETIME``` in SQL, and so forth. Remember 
-    that the ORM is A SEPERATE ABSTRACT LAYER we use to 
-    safely access the database of our choice.
+> Things our fearless leader doesn't know yet...
+>
+> For our ORM (PeeWee), each class attribute is a field in 
+> our database, in this case our Sqlite3 database that the
+> PeeWee ORM sits on top of. Which class we assign to the
+> attribute defines what type of field is created in the 
+> database, e.g. ```CharField``` in the ORM becomes
+> ```VARCHAR``` in the SQL database, ```DateTimeField```
+> becomes ```DATETIME``` in SQL, and so forth. Remember 
+> that the ORM is A SEPERATE ABSTRACT LAYER we use to 
+> safely access the database of our choice.
 
 The ```datetime``` in the user model is of note, as we leave 
 off the paranthesis. This way, the date is taken from 
