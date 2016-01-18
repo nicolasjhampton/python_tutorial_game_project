@@ -34,6 +34,8 @@ will somehow evaluate to "True" for passing or "False" for
 not passing. Since I'm new to tests, I'm going to go with what I 
 always do when I'm new to something, my best guess.
 
+
+> <img src="our_fearless_leader.png" width="50%">
 > *<b>Things our fearless leader doesn't know yet...</b>*
 >
 > - The class must inherit from the ```unittest.TestCase``` class
