@@ -145,7 +145,7 @@ With Flask" class. Remember that most of the modules we're
 using have to be installed with pip before we can import
 them, I'm just not going over it. 
 
-So, let's just take a snapshot of the top of the [models.py](https://github.com/nicolasjhampton/python_tutorial_game_project/blob/master/models.py)
+So, let's just take a snapshot of the top of the [models.py](https://github.com/nicolasjhampton/python_tutorial_game_project/blob/21c137f30e863010ce082d6be1b4463ea992f42b/models.py)
 file as it should be now...you know, for posterity...
 
 ```python

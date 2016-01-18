@@ -2,7 +2,7 @@
 
 ### 1. ./tests.py, the first file 
 
-Now that we have an area for our tests in [tests.py](https://github.com/nicolasjhampton/python_tutorial_game_project/blob/master/tests.py), we need 
+Now that we have an area for our tests in [tests.py](https://github.com/nicolasjhampton/python_tutorial_game_project/blob/766b977a2dfab5522dc5cae58d46f1c73a3849e4/tests.py), we need 
 to figure out what these user objects are going to look 
 like.
 
@@ -31,7 +31,7 @@ and since I'm new to tests, I'm going to go with what I
 always do when I'm new to something, my best guess.
             
 Now that we have a test for the model creation, let's make 
-the model in [models.py](https://github.com/nicolasjhampton/python_tutorial_game_project/blob/master/models.py) ... 
+the model in [models.py](https://github.com/nicolasjhampton/python_tutorial_game_project/blob/766b977a2dfab5522dc5cae58d46f1c73a3849e4/models.py) ... 
 
 
 ### 2. ./models.py, our second file

@@ -4,7 +4,7 @@
 
 ### 1. Dude, that was a headache...where are we?
 
-So, (1/15/16) we have the beginning of the User model. It 
+So, (1/15/16) we have the beginning of the ```User``` model. It 
 seems we as beginners went so far out of our way that we 
 forgot where it is we are going. Part of that isn't all bad.
 Now we have an idea of the size of our first piece, the 
@@ -49,7 +49,7 @@ be kind to yourself.
 ### 2. Mapping my next step
 
 Now that we know the first step is done and the basic 
-skeleton of the User model is complete, let's try and fill
+skeleton of the ```User``` model is complete, let's try and fill
 in some of the details in our second step:
 
 - Then I can add login,logout, and password hash information to that database (where we are now)
