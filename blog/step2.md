@@ -139,8 +139,9 @@ that's a level of detail we don't have to start with.
 > <img width="20%" alt="Licensed under Public Domain via Wikimedia Commons - https://commons.wikimedia.org/wiki/File:Brown,r_time_macine60.jpg#/media/File:Brown,r_time_macine60.jpg" src="the_time_machine.jpg"/>
 > *<b>But in the future...</b>*
 >
-> Me and Doc Brown came back to let you guys know that the
-> password hashes bcrypt uses are strings that start with 
+> Me and Doc Brown came back from the future of this project  
+> to let you guys and gals know that the password 
+> hashes bcrypt uses are strings that start with 
 > '$2a$', so if you really want to check that password
 > integrity...buy a Delorean.
 
@@ -153,6 +154,8 @@ back to ...
 WAIT, STOP!
 
 ### 4. WAIT, STOP, DON'T TELL ME... Your card is the second test?
+
+<img alt=""Three Card Monte" by ZioDave - http://www.flickr.com/photos/ziodave/25510393. Licensed under CC BY-SA 2.0 via Commons - https://commons.wikimedia.org/wiki/File:Three_Card_Monte.jpg#/media/File:Three_Card_Monte.jpg" src="three_card_monte.jpg"/>
 
 See how we assumed that we had to know something about
 HOW to do something before we write a test to see if it
