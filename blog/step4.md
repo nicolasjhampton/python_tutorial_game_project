@@ -365,6 +365,8 @@ verbatim from Kenneth's tacocat tests, as it's pretty
 clear that's one of the next test we'll need, and commented
 it out.
 
+### 4. Does any of this crap really work?
+
 Welp, derp, derp, let's run it!
 
 ANNND...
