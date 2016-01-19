@@ -8,7 +8,7 @@ import unittest
 from playhouse.test_utils import test_database
 from peewee import *
 
-import app 
+import server
 from models import User
 
 # Instead of running models.initialize, which would 
@@ -30,9 +30,9 @@ class AppTestCase(unittest.TestCase):
         TEST_DB = SqliteDatabase(':memory:')
         TEST_DB.connect()
         TEST_DB.create_tables([User], safe=True)
-        tacocat.app.config['TESTING'] = True
-        tacocat.app.config['WTF_CSRF_ENABLED'] = False
-        self.app = tacocat.app.test_client()
+        server.app.config['TESTING'] = True
+        server.app.config['WTF_CSRF_ENABLED'] = False
+        self.app = server.app.test_client()
         # flask lays out these instructions for using app.config
         # to redirect the tests to our test database.
         # I've opted to use test_database instead...

@@ -332,6 +332,12 @@ class AppTestCase(unittest.TestCase):
 
 ```
 
+> <img alt="By New York : Underwood & Underwood, publishers (US-LOC) [Public domain], via Wikimedia Commons, https://commons.wikimedia.org/wiki/File%3ADunce_cap_from_LOC_3c04163u.png" src="our_fearless_leader.png" width="10%">
+> *<b>Things our fearless leader doesn't know yet...</b>*
+>
+> Is anyone going to tell him he left the tacocat reference
+> in the code he copied? No? Ok...
+
 The flask documentation lays out instructions for using 
 app.config to redirect the tests to our test database. 
 Kenneth uses test_database to do the same thing in memory,
@@ -360,6 +366,42 @@ clear that's one of the next test we'll need, and commented
 it out.
 
 Welp, derp, derp, let's run it!
+
+ANNND...
+
+Oh, looks like I forgot to take out tacocat in a few places.
+Let me just fix that, then run [_server_tests.py](https://github.com/nicolasjhampton/python_tutorial_game_project/blob/master/_server_tests.py) again...
+
+It also doesn't seem t be wise to name to variables the same
+name, so I'm going to change app.py to server.py, then...
+
+```
+
+(vpython)Nicolass-MacBook-Pro:GameProject nicolasjhampton$ python _server_tests.py
+E
+======================================================================
+ERROR: test_register_url (__main__.AppTestCase)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "_server_tests.py", line 33, in setUp
+    server.app.config['TESTING'] = True
+AttributeError: module 'server' has no attribute 'app'
+
+----------------------------------------------------------------------
+Ran 1 test in 0.037s
+
+FAILED (errors=1)
+
+```
+
+It failed! Success?! That's pretty much what we're looking for right
+now. We imported server.py, but there's nothing in server.py, much
+less app attribute, so [let's get coding it](https://github.com/nicolasjhampton/python_tutorial_game_project/blob/master/blog/step5.md).
+
+Thank god, kinda tired of this test by this point...
+
+
+
 
 
 
