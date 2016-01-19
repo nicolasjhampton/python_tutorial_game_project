@@ -1,3 +1,11 @@
+<img alt="North Korea - Samjiyon waitress (5024319154) by Roman Harak - North Korea - Samjiyon waitress. Licensed under CC BY-SA 2.0 via Commons - https://commons.wikimedia.org/wiki/File:North_Korea_-_Samjiyon_waitress_(5024319154).jpg#/media/File:North_Korea_-_Samjiyon_waitress_(5024319154).jpg" src="server.jpg" width="30%">
+
+## Step 4 - Servers, tips, and tests: Giving 120%
+
+20 TOP DOWN! BEHIND YOU! I NEED A RUNNER! CORNER! TABLE 20 STILL NEEDS WATER!!!!
+
+Oh s%#&, wrong server, had a flashback. Tip your waiter, people. Anyways...
+
 (1/18/16) Let's quick take a glance at that roadmap in step 2...
 
 - I'll design the database table that stores the user data (done)
@@ -280,7 +288,7 @@ on.
 
 ### 3. Less talk, more explosions Mr. Wizard!
 
-Alright, let's frankenstein us a test in [_server_tests.py]()!
+Alright, let's frankenstein us a test in [_server_tests.py](https://github.com/nicolasjhampton/python_tutorial_game_project/blob/4e601ceb45802f2f44a08ca44289c5dc6fe1bf2b/_server_tests.py)!
 
 ```python
 
