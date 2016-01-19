@@ -1,4 +1,4 @@
-<img alt="North Korea - Samjiyon waitress (5024319154) by Roman Harak - North Korea - Samjiyon waitress. Licensed under CC BY-SA 2.0 via Commons - https://commons.wikimedia.org/wiki/File:North_Korea_-_Samjiyon_waitress_(5024319154).jpg#/media/File:North_Korea_-_Samjiyon_waitress_(5024319154).jpg" src="server.jpg" width="30%">
+<img alt="North Korea - Samjiyon waitress (5024319154) by Roman Harak - North Korea - Samjiyon waitress. Licensed under CC BY-SA 2.0 via Commons - https://commons.wikimedia.org/wiki/File:North_Korea_-_Samjiyon_waitress_(5024319154).jpg#/media/File:North_Korea_-_Samjiyon_waitress_(5024319154).jpg" src="server.jpg" width="75%">
 
 ## Step 4 - Servers, tips, and tests: Giving 120%
 
