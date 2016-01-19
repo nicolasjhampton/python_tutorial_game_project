@@ -495,7 +495,7 @@ At this point, I think our last goal here...
     
 deserves to be pushed [into the next step...](https://github.com/nicolasjhampton/python_tutorial_game_project/blob/master/step4.md)
 
-(I mean, this step was getting kinda full, right? I mean, 500 lines is a crowd.)
+(This step was getting kinda full, right? I mean, 500 lines is a crowd.)
 
 
 
