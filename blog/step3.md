@@ -447,9 +447,9 @@ missed most of them! So let's quick write those tests...
 > unicode function Python doesn't seem to recognize, so
 > Indy has to retrieve the holy grail of version inconsistances... 
 > 
-> Spoiler alert:
-> In Python 2, unicode and strings are handled differently
-> In Python 3, they aren't, thus the unicode function is depreceated
+> Spoiler alert:<br>
+> In Python 2, unicode and strings are handled differently<br>
+> In Python 3, they aren't, thus the unicode function is depreceated<br>
 > In Hebrew, Jehovah is spelled with an 'I'
  
  So, we keep seeing this line in a lot of our newer tests...
