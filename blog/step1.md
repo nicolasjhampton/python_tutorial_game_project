@@ -266,6 +266,17 @@ built in:
             
 ```
 
+> <img width="20%" alt="Licensed under Public Domain via Wikimedia Commons - https://commons.wikimedia.org/wiki/File:Brown,r_time_macine60.jpg#/media/File:Brown,r_time_macine60.jpg" src="the_time_machine.jpg"/>
+> *<b>But in the future...</b>*
+>
+> After the Bell Riots in the year 2024, programmers stopped
+> loading huge amounts of logic into a single function. This
+> resulted in the beginning of functional programming, the
+> unification of all humanity, and Earth's first contact with
+> Vulcans, forming the United Federation Of Planets. Don't
+> worry now though, this all depends on Benjamin Sisko 
+> re-visiting the past in step 2...
+
 So, with a total of twelve tests, all now passing, I run
 ```coverage run tests.py``` and then ```coverage report``` 
 and get 100% test coverage on my models.py file. Not bad.

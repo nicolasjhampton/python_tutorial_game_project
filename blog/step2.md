@@ -184,18 +184,21 @@ requirement of functional programming!
 
 Now, go ahead and design the full-sized function to pass 
 these 2 tests. Instructions can be found in the 
-["Cryptographic Hashing with Flask-Bcrypt"](https://teamtreehouse.com/library/build-a-social-network-with-flask/making-strong-users/cryptographic-hashing-with-flaskbcrypt)lesson.
-That's not my problem guys, I'm here for the tests
-and the functions. Good luck with that...
+["Cryptographic Hashing with Flask-Bcrypt"](https://teamtreehouse.com/library/build-a-social-network-with-flask/making-strong-users/cryptographic-hashing-with-flaskbcrypt)lesson. 
+That's not my problem, I'm here for the tests
+and functions. Good luck with writing that...
 
 ### 5. Breaking down into units of code and tests
 
 
 That said, I can show you an example
 of what I mean with something we previously coded in
-a less-than-functional fashion. Let's have a quick look 
-at the password and username length checks in our
-```create_user``` function:
+a less-than-functional fashion. Let us join Captain
+Sisko's utopian future and prevent this function from
+becoming a mess of tangled logic! 
+
+Have a quick look at these password and username length 
+checks in our ```create_user``` function:
 
 ```python 
 
@@ -287,12 +290,13 @@ and password checks their own functions...
 ```
 
 Ha, now we've split up our units into small, testable 
-chunks. Notice how we attached the methods to the cls object,
-then passed the cls object when we needed to access variables
-or methods that belong to that object (cls is a reference to 
-the class of itself, very much like ```self``` and ```this```, 
-although I'm only using instinct to engineer this solution, 
-I don't know if it's convention. But I like it.) 
+chunks. Starfleet is pleased. Notice how we attached the 
+methods to the cls object, then passed the cls object when we 
+needed to access variables or methods that belong to that 
+object (cls is a reference to the class of itself, very much 
+like ```self``` and ```this```, although I'm only using instinct 
+to engineer this solution, I don't know if it's convention. 
+But I like it.) 
 
 What's more, now that we've completely changed the 
 implementation of the ```create_user``` method, I can run my
@@ -307,7 +311,8 @@ have side affects from functions affecting variables
 outside of the function's scope. But, the variable is 
 contained inside of the object, it's only used for one
 purpose, and in general, I'm ok with it. Functional
-programming isn't the end all be all, just a guideline.
-In this case, I like the solution for the moment being.
+programming isn't the end all be all, but a general 
+guideline that's good to stick to. In this case, I 
+like the solution for the moment being.
 
 Now I can move on to [finishing this User class...](https://github.com/nicolasjhampton/python_tutorial_game_project/blob/master/blog/step3.md)

@@ -73,6 +73,13 @@ yet...
         
 ```
 
+> <img alt="By New York : Underwood & Underwood, publishers (US-LOC) [Public domain], via Wikimedia Commons, https://commons.wikimedia.org/wiki/File%3ADunce_cap_from_LOC_3c04163u.png" src="our_fearless_leader.png" width="10%">
+> *<b>Things our fearless leader doesn't know yet...</b>*
+>
+> HA-HA-HA-HA-HA! I know d%$# well there's no such property!
+> But will wear this hat proudly, cadet, for tommorow,
+> we will be all the wiser for the code we'll screw up today!
+
 Of course, there's a particular assertion for ```in``` truthy
 values in the unittest library, but I actually see no actual
 technical need to use it here, and for all intensive purposes,
@@ -100,6 +107,15 @@ waste two hours looking on the internet for a one word method
 that does the same thing as three words. At least not to start
 with. We aren't born experts, exploit what you know, pick up 
 the rest on the way.
+
+> <img alt="By New York : Underwood & Underwood, publishers (US-LOC) [Public domain], via Wikimedia Commons, https://commons.wikimedia.org/wiki/File%3ADunce_cap_from_LOC_3c04163u.png" src="our_fearless_leader.png" width="10%">
+> *<b>Things our fearless leader doesn't know yet...</b>*
+>
+> I'm not going to say I could have saved myself hours by just
+> reading the docs and blindly following the instructions. Mostly
+> because, as you're about to see, I followed this rabbit hole into 
+> learning a ton of stuff I didn't know before. I've learned more 
+> wearing this hat than most others have trying to avoid it.
 
 I don't, however, have much of an idea what type of variable
 to expect for the user ID. I do, however, know that once again,
@@ -409,6 +425,18 @@ missed most of them! So let's quick write those tests...
         assert str(user.id) == user.get_id()
         
  ```
+ 
+> <img width="20%" alt="Licensed under Public Domain via Wikimedia Commons - https://commons.wikimedia.org/wiki/File:Brown,r_time_macine60.jpg#/media/File:Brown,r_time_macine60.jpg" src="the_time_machine.jpg"/>
+> *<b>But in the future...</b>*
+>
+> ...Professor Jones has been shot repeatedly by a strange 
+> unicode function Python doesn't seem to recognize, so
+> Indy has to retrieve the holy grail of version inconsistances... 
+> 
+> Spoiler alert:
+> In Python 2, unicode and strings are handled differently
+> In Python 3, they aren't, thus the unicode function is depreceated
+> In Hebrew, Jehovah is spelled with an 'I'
  
  So, we keep seeing this line in a lot of our newer tests...
  
