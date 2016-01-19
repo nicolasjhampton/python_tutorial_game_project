@@ -108,8 +108,8 @@ that does the same thing as three words. At least not to start
 with. We aren't born experts, exploit what you know, pick up 
 the rest on the way.
 
-> <img alt="By New York : Underwood & Underwood, publishers (US-LOC) [Public domain], via Wikimedia Commons, https://commons.wikimedia.org/wiki/File%3ADunce_cap_from_LOC_3c04163u.png" src="our_fearless_leader.png" width="10%">
-> *<b>Things our fearless leader doesn't know yet...</b>*
+> <img width="20%" alt="Licensed under Public Domain via Wikimedia Commons - https://commons.wikimedia.org/wiki/File:Brown,r_time_macine60.jpg#/media/File:Brown,r_time_macine60.jpg" src="the_time_machine.jpg"/>
+> *<b>But in the future...</b>*
 >
 > I'm not going to say I could have saved myself hours by just
 > reading the docs and blindly following the instructions. Mostly
@@ -129,9 +129,20 @@ looking at ```dir(models.User)```, I can see...
 
 ...there's already an ```models.User.id``` property and a 
 ```models.User.get_id()``` method on the object, and they're
-not what I'm looking for. This is the entry id automatically
-assigned to every entry in the database table. So we'll fudge
-a test...
+not what I'm looking for.
+
+> <img alt="By New York : Underwood & Underwood, publishers (US-LOC) [Public domain], via Wikimedia Commons, https://commons.wikimedia.org/wiki/File%3ADunce_cap_from_LOC_3c04163u.png" src="our_fearless_leader.png" width="10%">
+> *<b>Things our fearless leader doesn't know yet...</b>*
+>
+> ...these actually ARE those droids we are looking for.
+> UserMixin is making the reasonable guess that we're 
+> using a database to store our users, and that 'id' will
+> be the unique identifier. More often than not, that guess
+> would be correct, and the stock code takes that into
+> account.
+
+This is the entry id automatically assigned to every entry in the 
+database table. So we'll fudge a test...
 
 ```python
 
@@ -147,7 +158,7 @@ coding...
 
 ### 3. May I remind you, we have no idea how login works...
 
-But we wrote already wrote three tests for its expected
+...but we wrote already wrote three tests for its expected
 behavior, and put a lot of thought into how that behavior
 will be represented. We also kept our expectations small
 and well separated. That's why I'm writing the tests first.
@@ -162,7 +173,7 @@ using have to be installed with pip before we can import
 them, I'm just not going over it. 
 
 So, let's just take a snapshot of the top of the [models.py](https://github.com/nicolasjhampton/python_tutorial_game_project/blob/21c137f30e863010ce082d6be1b4463ea992f42b/models.py)
-file as it should be now...you know, for posterity...
+file as it should be before we do anything fancy...you know, for posterity...
 
 ```python
 
@@ -287,7 +298,7 @@ thus this test. Nothing important really...
 
 ```
 
-these two definitions override the magic methods for equality and
+These two definitions override the magic methods for equality and
 non-equality on the object. For more info, check out this tutorial 
 on [magic methods](http://www.rafekettler.com/magicmethods.html), pretty useful information. Basically, 
 we're just making sure that when we compare ```User``` objects, 
@@ -329,8 +340,10 @@ to access each unique ```User``` object.
 
 ```
 
-Do you ever get that urge to make something exceedingly simple
-very complex? Let's feed that urge now. Each one of these 
+> <img alt="http://s.quickmeme.com/img/de/de946157581984180c7402c7b4bf85b92589c505ee10270edf31c22af57a4a0f.jpg" src="but_why.jpg" width="10%">
+
+Do you ever get that urge to make something very simple
+exceedingly complex? Let's feed that urge now. Each one of these 
 "properties" (more in a second) are referring to special
 states we actually aren't going to use in this class. That's
 what Kenneth really goes over in this video. We wont be making
