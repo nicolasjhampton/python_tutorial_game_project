@@ -341,6 +341,7 @@ to access each unique ```User``` object.
 ```
 
 > <img alt="http://s.quickmeme.com/img/de/de946157581984180c7402c7b4bf85b92589c505ee10270edf31c22af57a4a0f.jpg" src="but_why.jpg" width="30%">
+>
 > *<b>Do you ever get that urge to make something very simple exceedingly complex?</b>* 
 > *<b>Let's feed that urge now.</b>*
 
