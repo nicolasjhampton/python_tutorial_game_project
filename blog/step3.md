@@ -2,8 +2,8 @@
 
 ## Step 3 - Using This User Up...
 
-So I finished the password hashing in my last small sprint,
-and I hope you figured that out too. I also did some small
+(1/17/16) So I finished the password hashing in my last small 
+sprint, and I hope you figured that out too. I also did some small
 refactoring on a method or two so each function wasn't
 responisble for doing more than it should, a pattern I'm
 going to try to keep, and I figured out how writing tests 

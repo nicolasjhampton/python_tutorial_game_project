@@ -75,14 +75,4 @@ def initialize():
     
     DATABASE.connect()
     DATABASE.create_tables([User], safe=True)
-    User.create_user(username='testUsername',
-                email='testEmail@testEmail.com',
-                password='testPassword')
     DATABASE.close()
-    
-
-if __name__ == "__main__":
-    """Called when the program starts if not called as an imported module"""
-    initialize()
-
-        

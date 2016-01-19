@@ -15,6 +15,9 @@ class UserTableTests(unittest.TestCase):
     def setUp(self):
         """Runs before every test, creating the User table and one entry if either are not present"""
         models.initialize()
+        models.User.create_user(username='testUsername',
+                email='testEmail@testEmail.com',
+                password='testPassword')
         self.user = models.User.get(email='testEmail@testEmail.com')
                 
     def tearDown(self):
