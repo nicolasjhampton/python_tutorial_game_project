@@ -493,7 +493,7 @@ At this point, I think our last goal here...
 
     - ...[writing] another [test] to check a login status (in or out) is present.
     
-deserves to be pushed [into the next step...](https://github.com/nicolasjhampton/python_tutorial_game_project/blob/master/step4.md)
+deserves to be pushed [into the next step...](https://github.com/nicolasjhampton/python_tutorial_game_project/blob/master/blog/step4.md)
 
 (This step was getting kinda full, right? I mean, 500 lines is a crowd.)
 
