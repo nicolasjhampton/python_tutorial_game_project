@@ -33,38 +33,36 @@ class AppTestCase(unittest.TestCase):
         server.app.config['TESTING'] = True
         server.app.config['WTF_CSRF_ENABLED'] = False
         self.app = server.app.test_client()
-        # flask lays out these instructions for using app.config
-        # to redirect the tests to our test database.
-        # I've opted to use test_database instead...
-        # self.db_fd, app.app.config['DATABASE'] = tempfile.mkstemp()
-        # app.app.config['TESTING'] = True
-        # self.app = app.app.test_client()
-        # flaskr.init_db()
 
     # def tearDown(self):
     #     os.close(self.db_fd)
     #     os.unlink(app.app.config['DATABASE'])
     
     def test_register_url(self):
+        """Test to for a 200 status code from our registration url"""
         with test_database(self.TEST_DB, (User,)):
             rv = self.app.get('/register')
             self.assertEqual(rv.status_code, 200)
             
             
     # Saving this for later...
-    # def test_registration(self):
-    #     data = {
-    #         'username': 'testUsername',
-    #         'email': 'test@example.com',
-    #         'password': 'password',
-    #         'password2': 'password'
-    #     }
-    #     with test_database(TEST_DB, (User,)):
-    #         rv = self.app.post(
-    #             '/register',
-    #             data=data)
-    #         self.assertEqual(rv.status_code, 302)
-    #         self.assertEqual(rv.location, 'http://localhost/')
+    # We'll need 
+    # 1. a form file and 
+    # 2. a post node on our view function (this may need another status test) and
+    # 3. before and after request methods to connect and close the database 
+    def test_registration(self):
+        data = {
+            'username': 'testUsername',
+            'email': 'test@example.com',
+            'password': 'password',
+            'password2': 'password'
+        }
+        with test_database(self.TEST_DB, (User,)):
+            rv = self.app.post(
+                '/register',
+                data=data)
+            self.assertEqual(rv.status_code, 200)
+ 
 
 if __name__ == '__main__':
     unittest.main()

@@ -336,7 +336,9 @@ class AppTestCase(unittest.TestCase):
 > *<b>Things our fearless leader doesn't know yet...</b>*
 >
 > Is anyone going to tell him he left the tacocat reference
-> in the code he copied? No? Ok...
+> in the code he copied? No? Well, what about attaching the
+> TEST_DB to the self object? No? Well,ok, but it won't work
+> the first time...
 
 > <img width="20%" alt="Licensed under Public Domain via Wikimedia Commons - https://commons.wikimedia.org/wiki/File:Brown,r_time_macine60.jpg#/media/File:Brown,r_time_macine60.jpg" src="the_time_machine.jpg"/>
 > *<b>But in the future...</b>*
@@ -369,7 +371,7 @@ if __name__ == '__main__':
 ```
 
 All that to test a little 200 status code. It's a start...
-I think. I also pulled a test for registration almost 
+I think. I also pulled a test for [registration]() almost 
 verbatim from Kenneth's tacocat tests, as it's pretty
 clear that's one of the next test we'll need, and commented
 it out.
@@ -385,6 +387,10 @@ Let me just fix that, then run [_server_tests.py](https://github.com/nicolasjham
 
 It also doesn't seem t be wise to name to variables the same
 name, so I'm going to change app.py to server.py, then...
+
+Crap, can't find ```TEST_DB``` variable. I'll just attach it to the
+```self``` variable like [this](https://github.com/nicolasjhampton/python_tutorial_game_project/blob/9c2442b7320c169dfd00ace697aea3595b56d29c/_server_tests.py) so it becomes an attribute of the 
+object that's available, and...
 
 ```
 
