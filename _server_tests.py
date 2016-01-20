@@ -27,9 +27,9 @@ from models import User
 class AppTestCase(unittest.TestCase):
 
     def setUp(self):
-        TEST_DB = SqliteDatabase(':memory:')
-        TEST_DB.connect()
-        TEST_DB.create_tables([User], safe=True)
+        self.TEST_DB = SqliteDatabase(':memory:')
+        self.TEST_DB.connect()
+        self.TEST_DB.create_tables([User], safe=True)
         server.app.config['TESTING'] = True
         server.app.config['WTF_CSRF_ENABLED'] = False
         self.app = server.app.test_client()
@@ -46,7 +46,7 @@ class AppTestCase(unittest.TestCase):
     #     os.unlink(app.app.config['DATABASE'])
     
     def test_register_url(self):
-        with test_database(TEST_DB, (User,)):
+        with test_database(self.TEST_DB, (User,)):
             rv = self.app.get('/register')
             self.assertEqual(rv.status_code, 200)
             

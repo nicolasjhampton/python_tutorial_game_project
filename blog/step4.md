@@ -338,6 +338,15 @@ class AppTestCase(unittest.TestCase):
 > Is anyone going to tell him he left the tacocat reference
 > in the code he copied? No? Ok...
 
+> <img width="20%" alt="Licensed under Public Domain via Wikimedia Commons - https://commons.wikimedia.org/wiki/File:Brown,r_time_macine60.jpg#/media/File:Brown,r_time_macine60.jpg" src="the_time_machine.jpg"/>
+> *<b>But in the future...</b>*
+>
+> "WTF???!!! CSRF???!!! WTF???" you say? Forget 'bout
+> it...it ain't hurtin' nothin' now, but it has absolutely
+> nothing to do with what we're doing now. Later, though,
+> we'll be making forms, and we'll want this.
+
+
 The flask documentation lays out instructions for using 
 app.config to redirect the tests to our test database. 
 Kenneth uses test_database to do the same thing in memory,
