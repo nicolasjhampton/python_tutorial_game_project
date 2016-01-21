@@ -58,9 +58,11 @@ class AppTestCase(unittest.TestCase):
             'password2': 'password'
         }
         with test_database(self.TEST_DB, (User,)):
-            rv = self.app.post(
-                '/register',
-                data=data)
+            rv = self.app.post('/register', data=data)
+            self.assertEqual(User.select().count(), 1)
+            self.assertEqual(User.get().username, 'testUsername')
+            self.assertEqual(User.get().email, 'test@example.com')
+            self.assertNotEqual(User.get().password, 'password')
             self.assertEqual(rv.status_code, 200)
  
 

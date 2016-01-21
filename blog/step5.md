@@ -370,7 +370,7 @@ OK
 Looks great! And coverage report says the [server.py](https://github.com/nicolasjhampton/python_tutorial_game_project/blob/cb14fba931e43fcfcf12e4faf7e10a42a16e73d7/server.py) file is at 91%
 coverage with the new [_server_test.py](https://github.com/nicolasjhampton/python_tutorial_game_project/blob/cb14fba931e43fcfcf12e4faf7e10a42a16e73d7/_server_tests.py). Great! That is, if we're 
 ok with our data going no where and doing nothing. Look like we're 
-ready to hook that database to our POST route in [step 6](https://github.com/nicolasjhampton/python_tutorial_game_project/blob/master/blog/step5.md)... 
+ready to hook that database to our POST route in [step 6](https://github.com/nicolasjhampton/python_tutorial_game_project/blob/master/blog/step6.md)... 
 
 
 
