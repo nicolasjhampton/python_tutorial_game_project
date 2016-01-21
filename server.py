@@ -31,6 +31,7 @@ def post_registration():
     """POST route for our register page to create a User"""
     userinfo = dict(request.form.items())
     
+    # **userinfo would work, but we have to get rid of password2 first
     models.User.create_user(username= userinfo['username'],
                             email= userinfo['email'],
                             password= userinfo['password'])
