@@ -10,7 +10,7 @@ detail work will, I think, bring us to a depth of understanding
 that can easily translate to Django, Node, or any other
 similar stack we run across. 
 
-1. [models.py](https://github.com/nicolasjhampton/python_tutorial_game_project/blob/a9e898265bf842cca5df7b75a3ba5e4756a582d4/models.py) and [_model_tests.py](https://github.com/nicolasjhampton/python_tutorial_game_project/blob/4e601ceb45802f2f44a08ca44289c5dc6fe1bf2b/_model_tests.py)
+### 1. [models.py](https://github.com/nicolasjhampton/python_tutorial_game_project/blob/a9e898265bf842cca5df7b75a3ba5e4756a582d4/models.py) and [_model_tests.py](https://github.com/nicolasjhampton/python_tutorial_game_project/blob/4e601ceb45802f2f44a08ca44289c5dc6fe1bf2b/_model_tests.py)
 
 In [Step 3, part 4, The UserMixin](https://github.com/nicolasjhampton/python_tutorial_game_project/blob/master/blog/step3.md#4-the-usermixin), we made our User class inherit 
 from the UserMixin class in order to gain login / logout 
@@ -54,7 +54,7 @@ check method on the database.
 
 
 
-2. [forms.py](https://github.com/nicolasjhampton/python_tutorial_game_project/blob/a9e898265bf842cca5df7b75a3ba5e4756a582d4/forms.py) and [_form_tests.py](https://github.com/nicolasjhampton/python_tutorial_game_project/blob/a9e898265bf842cca5df7b75a3ba5e4756a582d4/_form_tests.py)
+### 2. [forms.py](https://github.com/nicolasjhampton/python_tutorial_game_project/blob/a9e898265bf842cca5df7b75a3ba5e4756a582d4/forms.py) and [_form_tests.py](https://github.com/nicolasjhampton/python_tutorial_game_project/blob/a9e898265bf842cca5df7b75a3ba5e4756a582d4/_form_tests.py)
 
 
 I JUST FINISHED THIS FORM! So, if there's a lot of problems, I'm 
@@ -63,7 +63,7 @@ this looks really good to me. I added a lot of commenting, organized
 some labels and spacing, and moved on...
 
 
-3. [server.py](https://github.com/nicolasjhampton/python_tutorial_game_project/blob/a9e898265bf842cca5df7b75a3ba5e4756a582d4/server.py) and [_server_tests.py](https://github.com/nicolasjhampton/python_tutorial_game_project/blob/a9e898265bf842cca5df7b75a3ba5e4756a582d4/_server_tests.py)
+### 3. [server.py](https://github.com/nicolasjhampton/python_tutorial_game_project/blob/a9e898265bf842cca5df7b75a3ba5e4756a582d4/server.py) and [_server_tests.py](https://github.com/nicolasjhampton/python_tutorial_game_project/blob/a9e898265bf842cca5df7b75a3ba5e4756a582d4/_server_tests.py)
 
 Same thing as forms, however I'm about to make major changes to these
 files, so I just added some comments and docstrings here, deleted
@@ -76,7 +76,7 @@ Our current [forms.py](https://github.com/nicolasjhampton/python_tutorial_game_p
 Our current [server.py](https://github.com/nicolasjhampton/python_tutorial_game_project/blob/9e3dea80b2217c03dba362ca32cd0aea70a025cf/server.py) and [_server_tests.py](https://github.com/nicolasjhampton/python_tutorial_game_project/blob/9e3dea80b2217c03dba362ca32cd0aea70a025cf/_server_tests.py) files.
 
 
-4. PEP8
+### 4. PEP8
 
 Going back to Kenneth's "Write Better Python" [PEP8 class](https://teamtreehouse.com/library/write-better-python/cleaner-code/pep-8), I 
 decided to run ```flake8 models.py```, and see what happened...
@@ -177,4 +177,63 @@ forms.py                                                      15      0   100%
  
 ```
 
+There, all clean. Now let's work on bringing the database, form
+and routes all together in our server.py file...
 
+
+### 5. Bringing the backend all together...
+ 
+Going back to our overall plan since we laid it out 
+[the form's connection with the database](https://github.com/nicolasjhampton/python_tutorial_game_project/blob/master/blog/step7.md#2-how-does-a-form-work-with-the-database), let's fill out a
+step or two we may not have seen then...
+
+
+- By then, I can build the flask server that will serve our first route... (Done)
+
+    1. There will be a url to get to a register page (Done)
+        * We can test for basic connectivity (Done)
+            - We need a 200 response from our /register GET route (Done)
+            - We need a status code response from our /register POST route (Done)
+           
+    2. Connect our POST route to our database (Done)
+        * We can test that flask received our data in the request object (Done)
+        * We can test that flask is connected to the database during our request (Done)
+        * We can test that flask stored the data we received (Done)
+
+- ...and a form to validate the registration data sent via post...
+     
+     1. Our user form will validate our user information upon submission
+        * We have to test all our built in validators (Done)
+            - Usernames have to be over 3 and under 50 ascii characters (Done) 
+            - Emails have to be present and be in email format (Done)
+            - Password have to be over 6 and under 20 characters (Done)
+            - password2 has to match password (Done)
+        * We have to test our custom validators (Done)
+            - Usernames have to be unique in the database (Done)
+            - Emails have to be unique (Done)
+            
+>    2. We're missing something here to bring the form together with the route (We are here)
+>       * (Tests tests tests, blah blah blah)
+        
+- ...from the HTML registration screen that creates new users.
+
+    1. We need a register prompt (oh, this makes sense)
+        * We can test for the presence of username, email, and password fields
+        * We can test... (Blah blah blah)
+        
+        
+Since we're missing that step, let's write it, then bring it together...
+
+- ...and a form to validate the registration data sent via post...
+     
+     1. Our user form will validate our user information upon submission
+        * We have to test all our built in validators (Done)
+            - Usernames have to be over 3 and under 50 ascii characters (Done) 
+            - Emails have to be present and be in email format (Done)
+            - Password have to be over 6 and under 20 characters (Done)
+            - password2 has to match password (Done)
+        * We have to test our custom validators (Where we are now)
+            - Usernames have to be unique in the database
+            - Emails have to be unique
+     2. We're missing something here to bring the form together with the route 
+        * (Tests tests tests, blah blah blah)
