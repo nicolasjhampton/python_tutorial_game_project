@@ -8,68 +8,80 @@ import models
 
 
 class FormTestCase(unittest.TestCase):
-
+    """Test suite for our RegistrationForm class"""
+    
+    
+    #####################
+    # test conditions
+    ##################### 
+    
+    
     setupTestApp = Flask(__name__)
     setupTestApp.config['TESTING'] = True
     setupTestApp.config['WTF_CSRF_ENABLED'] = False
     
     @setupTestApp.route('/', methods=['POST'])
     def sample_route():
-        """Test route returns string of boolean value for if form does/does not validate"""
+        """Mock route returns string of boolean value for if form does/does not validate"""
         form = forms.RegistrationForm()
         return str(form.validate_on_submit())
 
     def setUp(self):
-        # self.TEST_DB = SqliteDatabase(':memory:')
-        # self.TEST_DB.connect()
-        # self.TEST_DB.create_tables([User], safe=True)
+        """Connects to the database, creates tables, defines two sets of mock
+           user info, creates a mock user and a test client before every test"""
         models.DATABASE.connect()
         models.DATABASE.create_tables([models.User], safe=True)
-        """Data designed to pass that we can modify to fail. Reset each test."""
+        # Data designed to pass that we can modify to fail. Reset each test.
         self.data = {
             'username': 'testUsername',
             'email': 'test@example.com',
             'password': 'password',
             'password2': 'password'
         }
+        # Data2 is a mock user entered into database for duplicate entry tests
         self.data2 = {
             'username': 'testUsername2',
             'email': 'test2@example.com',
             'password': 'password',
             'password2': 'password'
         }
-        # with test_database(self.TEST_DB, (User,)):
         models.User.create_user(username=self.data2['username'],
                                 email=self.data2['email'],
                                 password=self.data2['password'])
+        # run test client
         self.testApp = self.setupTestApp.test_client()
         
     def tearDown(self):
+        """Deletes the user created and closes the database after every test"""
         models.User.delete().execute()
         models.DATABASE.close()
+        
+        
+    #####################
+    # Error tests
+    ##################### 
     
-    #Username has to be over 3 and under 50 ascii characters, and unique
         
     def test_username_min_length_validation(self):
-        """Test that our form rejects invalid usernames"""
+        """Test that our form rejects usernames that are too short (3 characters or less)"""
         self.data['username'] = 'bob'
         response = self.testApp.post('/', data=self.data)
         assert 'False' in str(response.data)
         
     def test_username_max_length_validation(self):
-        """Test that our form rejects invalid usernames"""
+        """Test that our form rejects usernames that are too long (over 50 characters)"""
         self.data['username'] = 'b'*52
         response = self.testApp.post('/', data=self.data)
         assert 'False' in str(response.data)
         
     def test_username_ascii_validation(self):
-        """Test that our form rejects invalid usernames"""
+        """Test that our form rejects usernames with non-ascii characters"""
         self.data['username'] = '********'
         response = self.testApp.post('/', data=self.data)
         assert 'False' in str(response.data)
         
     def test_email_at_validation(self):
-        """Test that our form rejects emails without at symbols"""
+        """Test that our form rejects emails without an @ symbol"""
         self.data['email'] = 'noatcharacter.com'
         response = self.testApp.post('/', data=self.data)
         assert 'False' in str(response.data)
@@ -83,14 +95,12 @@ class FormTestCase(unittest.TestCase):
     def test_email_duplicate_validation(self):
         """Test that our form rejects duplicate emails"""
         self.data2['username'] = 'uniqueusername'
-        #with test_database(self.TEST_DB, (User,)):
         response = self.testApp.post('/', data=self.data2)
         assert 'False' in str(response.data)
     
     def test_username_duplicate_validation(self):
         """Test that our form rejects duplicate usernames"""
         self.data2['email'] = 'email@unique.com'
-        #with test_database(self.TEST_DB, (User,)):
         response = self.testApp.post('/', data=self.data2)
         assert 'False' in str(response.data)
     

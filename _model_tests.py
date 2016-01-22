@@ -1,23 +1,27 @@
-# We have to import the unittest library
 import unittest
 
-# We'll import our models here. 
 import models
                 
+                
 class UserTableTests(unittest.TestCase):
-    """Tests the User table"""
+    """Test suite for our User class"""
     
     
     #####################
     # test conditions
     ##################### 
 
+
     def setUp(self):
-        """Runs before every test, creating the User table and one entry if either are not present"""
+        """Runs before every test, creating the User table and 
+           one entry if either are not present"""
+        # Opens connection, creates table, and closes connection
         models.initialize()
+        # Creates one mock entry in the database
         models.User.create_user(username='testUsername',
                 email='testEmail@testEmail.com',
                 password='testPassword')
+        # Retrieves mock entry from database and stores it locally
         self.user = models.User.get(email='testEmail@testEmail.com')
                 
     def tearDown(self):
@@ -73,7 +77,7 @@ class UserTableTests(unittest.TestCase):
         
     def test_password_equality(self):
         """Tests that any recalled password is not equal to the original password text (assumed hashed)"""
-        assert self.user.check_password('testPassword')
+        assert self.user.check_password_against_hash('testPassword')
         
         
         
@@ -82,14 +86,16 @@ class UserTableTests(unittest.TestCase):
         assert 'id' in dir(self.user)
         
     def test_get_id_exists(self):
-        """Tests that a User entry is created with a get_id method for flask-login to use"""
+        """Tests that a User entry is created with a get_id method"""
         assert 'get_id' in dir(self.user)
 
     def test_get_id_result(self):
-        """Tests that a User entry's get_id method returns the user id for flask-login to use"""
-        assert str(self.user.id) == self.user.get_id()
+        """Tests that a User entry's get_id method returns the user id"""
+        assert self.user.id == self.user.get_id()
 
-        
+    # def test_get_id_result(self):
+    #     """Tests that a User entry's get_id method returns the user id in string format for flask-login to use"""
+    #     assert str(self.user.id) == self.user.get_id()
         
     # def test_login_property_exists(self):
     #     """Tests that a User entry is created with a login property"""
@@ -132,6 +138,14 @@ class UserTableTests(unittest.TestCase):
                 email='testEmail@testEmail.com',
                 password='testPassword')
                 
+    def test_username_min_length_limit(self):
+        """Tests the ascii character requirement placed on the username field of our User model"""
+        with self.assertRaises(ValueError):
+            models.User.create_user(
+                username='********',
+                email='Email@testEmail.com',
+                password='testPassword')
+                
     def test_username_max_length_limit(self):
         """Tests the length limit placed on the username field of our User model"""
         with self.assertRaises(ValueError):
@@ -165,8 +179,6 @@ class UserTableTests(unittest.TestCase):
                 password='p'*6)
         
 
-# This is a convention that runs if this module is called
-# directly, and not as a dependency of another script
 if __name__ == '__main__':
     unittest.main()
 

@@ -1,12 +1,13 @@
 import datetime
 from flask.ext.bcrypt import check_password_hash, generate_password_hash
-from flask.ext.login import UserMixin
+# from flask.ext.login import UserMixin
 from peewee import * 
+import re
  
 DATABASE = SqliteDatabase('users.db')
 
 
-class User(UserMixin, Model):
+class User(Model): # add UserMixin to this class later
     """Database schema for the User table. All database objects descend from 'Model' class."""
     username = CharField(max_length=50, unique=True)
     email = CharField(unique=True)
@@ -20,24 +21,25 @@ class User(UserMixin, Model):
     def hash_password(password):
         """Generate new password hash"""
         if password != None:
-                  #generate_password_hash(password=password, rounds=12)
-                  #this will produce a hash that starts with $2a$
+                  # generate_password_hash(password=password, rounds=12)
+                  # this will produce a hash that starts with $2a$
             return generate_password_hash(password)
   
-    def check_password(cls, password):
+    def check_password_against_hash(cls, password):
         """Check user's password hash against input""" 
         return check_password_hash(cls.password, password)
         
-    def check_new_username_length(cls, username):
-        """Username length check"""
-        if len(username) > 3 and len(username) < 51:
+    def check_new_username(cls, username):
+        pattern = re.compile(r'^[a-zA-Z0-9_]+$')
+        """Username validity check"""
+        if len(username) > 3 and len(username) < 51 and pattern.match(username):
             return username
         else:
             cls.error = "username"
             return None
             
-    def check_new_password_length(cls, password):
-        """Password length check"""
+    def check_new_password(cls, password):
+        """Password validity check"""
         if len(password) > 6 and len(password) < 20:
             return password
         else:
@@ -52,9 +54,9 @@ class User(UserMixin, Model):
            limits on VARCHAR fields, so we have to 
            manually block and throw errors."""
         
-        usernameChecked = cls.check_new_username_length(cls, username)
+        usernameChecked = cls.check_new_username(cls, username)
          
-        passwordChecked = cls.check_new_password_length(cls, password)
+        passwordChecked = cls.check_new_password(cls, password)
         
         try:
             cls.create(
@@ -64,12 +66,12 @@ class User(UserMixin, Model):
         except IntegrityError:
             raise ValueError("User already exists")
         except UnboundLocalError:
+            # Thrown if the username, password, or email doesn't pass the test methods
             raise ValueError("Invalid {}".format(cls.invalidValueError))
             
              
 def initialize():
     """Called when the program starts if not called as an imported module"""
-    
     DATABASE.connect()
     DATABASE.create_tables([User], safe=True)
     DATABASE.close()
