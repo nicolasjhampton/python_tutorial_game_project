@@ -69,8 +69,8 @@ Same thing as forms, however I'm about to make major changes to these
 files, so I just added some comments and docstrings here, deleted
 a few there, and called it a day.
 
-Our current [models.py]() and [_model_tests.py]() files. 
+Our current [models.py](https://github.com/nicolasjhampton/python_tutorial_game_project/blob/9ac83329a0976ae2b725f42dfc4259b7b1d1d267/models.py) and [_model_tests.py](https://github.com/nicolasjhampton/python_tutorial_game_project/blob/9ac83329a0976ae2b725f42dfc4259b7b1d1d267/_model_tests.py) files. 
 
-Our current [forms.py]() and [_form_tests.py]() files. 
+Our current [forms.py](https://github.com/nicolasjhampton/python_tutorial_game_project/blob/9ac83329a0976ae2b725f42dfc4259b7b1d1d267/forms.py) and [_form_tests.py](https://github.com/nicolasjhampton/python_tutorial_game_project/blob/9ac83329a0976ae2b725f42dfc4259b7b1d1d267/_form_tests.py) files. 
 
-Our current [server.py]() and [_server_tests.py]() files.
+Our current [server.py](https://github.com/nicolasjhampton/python_tutorial_game_project/blob/9e3dea80b2217c03dba362ca32cd0aea70a025cf/server.py) and [_server_tests.py](https://github.com/nicolasjhampton/python_tutorial_game_project/blob/9e3dea80b2217c03dba362ca32cd0aea70a025cf/_server_tests.py) files.
