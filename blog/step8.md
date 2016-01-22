@@ -158,11 +158,11 @@ OK
 
 And after all that...
 
-Our current [models.py]() and [_model_tests.py]() files. 
+Our current [models.py](https://github.com/nicolasjhampton/python_tutorial_game_project/blob/cce677870e17c6c0bf3a03663aa3cdc0808b76c7/models.py) and [_model_tests.py](https://github.com/nicolasjhampton/python_tutorial_game_project/blob/cce677870e17c6c0bf3a03663aa3cdc0808b76c7/_model_tests.py) files. 
 
-Our current [forms.py]() and [_form_tests.py]() files. 
+Our current [forms.py](https://github.com/nicolasjhampton/python_tutorial_game_project/blob/cce677870e17c6c0bf3a03663aa3cdc0808b76c7/forms.py) and [_form_tests.py](https://github.com/nicolasjhampton/python_tutorial_game_project/blob/cce677870e17c6c0bf3a03663aa3cdc0808b76c7/_form_tests.py) files. 
 
-Our current [server.py]() and [_server_tests.py]() files.
+Our current [server.py](https://github.com/nicolasjhampton/python_tutorial_game_project/blob/cce677870e17c6c0bf3a03663aa3cdc0808b76c7/server.py) and [_server_tests.py](https://github.com/nicolasjhampton/python_tutorial_game_project/blob/cce677870e17c6c0bf3a03663aa3cdc0808b76c7/_server_tests.py) files.
 
 And with these files, moving forward, coverage reports...(These are 
 composite results from three different reports) 
