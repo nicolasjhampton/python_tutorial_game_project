@@ -178,7 +178,7 @@ IndentationError: unexpected indent
 >>>
 ```
 
-Sweet, we've got a responce! Now what the heck is in there?
+Sweet, we've got a response! Now what the heck is in there?
 
 ```
 >>> dir(response)
@@ -281,7 +281,7 @@ if __name__ == '__main__':
 ```
 
 Alright. I think that's set up, but I don't expect to get any
-good results until I have a [forms.py]() file to import, so let's
+good results until I have a [forms.py](https://github.com/nicolasjhampton/python_tutorial_game_project/blob/bfcb671b178d31f9e2f62f8428d6213bc02bb8f1/forms.py) file to import, so let's
 quick set up the boilerplate. I originally went to the [wtforms docs](https://wtforms.readthedocs.org/en/latest/fields.html#field-definitions)
 to try and reason what would be the absolute least amount of info I
 needed to make a form, but ultimately found Kenneth's [Flask-WTF](https://teamtreehouse.com/library/build-a-social-network-with-flask/takin-names/flaskwtf-forms)
@@ -302,7 +302,7 @@ class RegistrationForm(Form):
     
 ```
 
-Seems right, right??? Nothing to do but to run the test and see...
+Seems right, right??? Nothing to do but to run the [_form_tests.py](https://github.com/nicolasjhampton/python_tutorial_game_project/blob/bfcb671b178d31f9e2f62f8428d6213bc02bb8f1/_form_tests.py) file and see...
 
 ```
 (vpython)Nicolass-MacBook-Pro:GameProject nicolasjhampton$ python _form_tests.py
@@ -339,8 +339,129 @@ OK
 
 Great! So our test is sending a boolean for each case, we're
 testing from as simple an enviornment as we can, and we're ready
-to write some code. I'm going to make a few tests the same way
-to test all our other fields, then move on to [Step 8...](https://github.com/nicolasjhampton/python_tutorial_game_project/blob/master/blog/step8.md)
+to write some code. I'm going to make a few more tests in [_form_tests.py]() 
+to test all our other fields in the forms.py file. Take a 
+look if you want, but a lot of it looks pretty repeative. 
+
+
+### 2. How does a form work with the database?
+
+My goals with these 8 tests is to make fields that only validate
+after satisfying certain constraints:
+
+
+- Usernames have to be over 3 and under 50 ascii characters 
+
+- Emails have to be present and be in email format
+
+- Password have to be over 6 and under 20 characters
+
+- password2 has to match password
+
+
+However, I do have two  other requirements...
+
+
+- Usernames have to be unique in the database
+
+- Emails have to be unique in the database
+
+
+and two extra tests commented out:
+
+```python
+
+    def test_email_duplicate_validation(self):
+        """Test that our form rejects duplicate emails"""
+        # Don't know what to put here yet
+        response = self.testApp.post('/', data=self.data)
+        assert 'False' in str(response.data)
+    
+    def test_username_duplicate_validation(self):
+        """Test that our form rejects duplicate usernames"""
+        # Don't know what to put here yet
+        response = self.testApp.post('/', data=self.data)
+        assert 'False' in str(response.data)
+    
+```
+
+These last to tests are supposed to make sure our username
+and email fields woun't be duplicates of other entries in
+the database. In order to make that test, though, we need a 
+greater understanding not only of the form itself, but
+how it interacts with the database. For now, I'm putting 
+these two off while I satisfy the rest of my constraints.
+
+Again, I referred to instructions in Kenneth's [Flask-WTF](https://teamtreehouse.com/library/build-a-social-network-with-flask/takin-names/flaskwtf-forms)
+class to create my ```RegistrationForm()``` class in [_forms.py](),
+adding each constraint one at a time, then running my tests to
+make sure that each constraint did what I wanted it to do. 
+
+
+Wait, couldn't these constraints fill in our plan?...
+
+
+- I'll design the database table that stores the user data... (done)
+
+    1. Winged it mostly (done)
+
+- ...then add login,logout, and password hash information to that database. (mostly done)
+
+    1. Use B-crypt to hash the password stored in our User model (done)
+        * I'll start this by writing 2 tests (done)
+            - one to check the password is hashed (done)
+            - another to check we can check a hashed password entry against it (done)
+            
+    2. Use flask-login User mixin to check login id and status (kinda done)
+        *  I'll write a few tests (not sure how many, at least 2) (done)
+            - one to check a user id is present after user creation (done)
+            - **another to check a login status (in or out) is present (pushing this to later)**
+
+- By then, I can build the flask server that will serve our first route... (Done)
+
+    1. There will be a url to get to a register page (Done)
+        * We can test for basic connectivity (Done)
+            - We need a 200 response from our /register GET route (Done)
+            - We need a status code response from our /register POST route (Done)
+           
+    2. Connect our POST route to our database (Done)
+        * We can test that flask received our data in the request object (Done)
+        * We can test that flask is connected to the database during our request (Done)
+        * We can test that flask stored the data we received (Done)
+            
+- ...and a form to validate the registration data sent via post...
+     
+     1. Our user form will validate our user information upon submission
+        * We have to test all our built in validators (Done)
+            - Usernames have to be over 3 and under 50 ascii characters (Done) 
+            - Emails have to be present and be in email format (Done)
+            - Password have to be over 6 and under 20 characters (Done)
+            - password2 has to match password (Done)
+        * We have to test our custom validators (Where we are now)
+            - Usernames have to be unique in the database
+            - Emails have to be unique
+        
+- ...from the HTML registration screen that creates new users.
+
+    1. We need a register prompt (oh, this makes sense)
+        * We can test for the presence of username, email, and password fields
+        * We can test... (Blah blah blah)
+
+
+Watching the video, I realized that we have to create our own
+validator functions in order to check for duplicates in the database,
+and that requires importing the User model. In order to mock this,
+I think we can use the ```test_database``` method from our playhouse
+package to create a test database to query against for our tests...
+
+
+
+
+
+
+, then move on to [Step 8...](https://github.com/nicolasjhampton/python_tutorial_game_project/blob/master/blog/step8.md)
+
+
 
 
 
