@@ -339,7 +339,7 @@ OK
 
 Great! So our test is sending a boolean for each case, we're
 testing from as simple an enviornment as we can, and we're ready
-to write some code. I'm going to make a few more tests in [_form_tests.py]() 
+to write some code. I'm going to make a few more tests in [_form_tests.py](https://github.com/nicolasjhampton/python_tutorial_game_project/blob/bed17c290be272fda1cfd8a4bc5b490156be68be/_form_tests.py) 
 to test all our other fields in the forms.py file. Take a 
 look if you want, but a lot of it looks pretty repeative. 
 
@@ -385,7 +385,7 @@ and two extra tests commented out:
     
 ```
 
-These last to tests are supposed to make sure our username
+These last two tests in [_form_tests.py](https://github.com/nicolasjhampton/python_tutorial_game_project/blob/bed17c290be272fda1cfd8a4bc5b490156be68be/_form_tests.py) are supposed to make sure our username
 and email fields woun't be duplicates of other entries in
 the database. In order to make that test, though, we need a 
 greater understanding not only of the form itself, but
@@ -393,7 +393,7 @@ how it interacts with the database. For now, I'm putting
 these two off while I satisfy the rest of my constraints.
 
 Again, I referred to instructions in Kenneth's [Flask-WTF](https://teamtreehouse.com/library/build-a-social-network-with-flask/takin-names/flaskwtf-forms)
-class to create my ```RegistrationForm()``` class in [_forms.py](),
+class to create my ```RegistrationForm()``` class in [_forms.py](https://github.com/nicolasjhampton/python_tutorial_game_project/blob/bed17c290be272fda1cfd8a4bc5b490156be68be/forms.py),
 adding each constraint one at a time, then running my tests to
 make sure that each constraint did what I wanted it to do. 
 
@@ -454,12 +454,226 @@ and that requires importing the User model. In order to mock this,
 I think we can use the ```test_database``` method from our playhouse
 package to create a test database to query against for our tests...
 
+with a little work to our setUp method...
+
+```python
+
+    def setUp(self):
+        self.TEST_DB = SqliteDatabase(':memory:')
+        self.TEST_DB.connect()
+        self.TEST_DB.create_tables([User], safe=True)
+        """Data designed to pass that we can modify to fail. Reset each test."""
+        self.data = {
+            'username': 'testUsername',
+            'email': 'test@example.com',
+            'password': 'password',
+            'password2': 'password'
+        }
+        self.data2 = {
+            'username': 'testUsername2',
+            'email': 'test2@example.com',
+            'password': 'password',
+            'password2': 'password'
+        }
+        with test_database(self.TEST_DB, (User,)):
+            User.create_user(username=self.data2['username'],
+                                    email=self.data2['email'],
+                                    password=self.data2['password'])
+        self.testApp = self.setupTestApp.test_client()
+
+```
+
+and some work to our tests to bring reality to theory...
+
+```python
+
+    def test_email_duplicate_validation(self):
+        """Test that our form rejects duplicate emails"""
+        self.data2['username'] = 'uniqueusername'
+        with test_database(self.TEST_DB, (User,)):
+            response = self.testApp.post('/', data=self.data2)
+            assert 'False' in str(response.data)
+    
+    def test_username_duplicate_validation(self):
+        """Test that our form rejects duplicate usernames"""
+        self.data2['email'] = 'email@unique.com'
+        with test_database(self.TEST_DB, (User,)):
+            response = self.testApp.post('/', data=self.data2)
+            assert 'False' in str(response.data)
+            
+```
+
+we'll go back in and add some header to our form...
+
+```python
+
+#This import is how the form accesses the database
+from models import User
+
+def username_exists(form, field):
+    if User.select().where(User.username == field.data).exists():
+        raise ValidationError('User with that username already exists.')
+
+def email_exists(form, field):
+    if User.select().where(User.email == field.data).exists():
+        raise ValidationError('User with that email already exists.')
+```
+
+and run our tests...
+
+But here's the thing. It didn't work. 
+
+I still couldn't get the tests to pass, and I'm pretty certain
+it's because I could never get the form to reference the mocked
+test database. Instead, the form is creating it's own database 
+and referencing that, which would be correct in a real world
+instance. I decided to scrap the mock database for now and 
+just use the real one...
+
+```python
+
+from flask import Flask
+from peewee import *
+from playhouse.test_utils import test_database
+import unittest
+
+import forms
+import models
 
 
+class FormTestCase(unittest.TestCase):
 
+    setupTestApp = Flask(__name__)
+    setupTestApp.config['TESTING'] = True
+    setupTestApp.config['WTF_CSRF_ENABLED'] = False
+    
+    @setupTestApp.route('/', methods=['POST'])
+    def sample_route():
+        """Test route returns string of boolean value for if form does/does not validate"""
+        form = forms.RegistrationForm()
+        return str(form.validate_on_submit())
 
+    def setUp(self):
+        # self.TEST_DB = SqliteDatabase(':memory:')
+        # self.TEST_DB.connect()
+        # self.TEST_DB.create_tables([User], safe=True)
+        models.DATABASE.connect()
+        models.DATABASE.create_tables([models.User], safe=True)
+        """Data designed to pass that we can modify to fail. Reset each test."""
+        self.data = {
+            'username': 'testUsername',
+            'email': 'test@example.com',
+            'password': 'password',
+            'password2': 'password'
+        }
+        self.data2 = {
+            'username': 'testUsername2',
+            'email': 'test2@example.com',
+            'password': 'password',
+            'password2': 'password'
+        }
+        # with test_database(self.TEST_DB, (User,)):
+        models.User.create_user(username=self.data2['username'],
+                                email=self.data2['email'],
+                                password=self.data2['password'])
+        self.testApp = self.setupTestApp.test_client()
+        
+    def tearDown(self):
+        models.User.delete().execute()
+        models.DATABASE.close()
+    
+    #Username has to be over 3 and under 50 ascii characters, and unique
+        
+    def test_username_min_length_validation(self):
+        """Test that our form rejects invalid usernames"""
+        self.data['username'] = 'bob'
+        response = self.testApp.post('/', data=self.data)
+        assert 'False' in str(response.data)
+        
+    def test_username_max_length_validation(self):
+        """Test that our form rejects invalid usernames"""
+        self.data['username'] = 'b'*52
+        response = self.testApp.post('/', data=self.data)
+        assert 'False' in str(response.data)
+        
+    def test_username_ascii_validation(self):
+        """Test that our form rejects invalid usernames"""
+        self.data['username'] = '********'
+        response = self.testApp.post('/', data=self.data)
+        assert 'False' in str(response.data)
+        
+    def test_email_at_validation(self):
+        """Test that our form rejects emails without at symbols"""
+        self.data['email'] = 'noatcharacter.com'
+        response = self.testApp.post('/', data=self.data)
+        assert 'False' in str(response.data)
+        
+    def test_email_domain_validation(self):
+        """Test that our form rejects emails without domain names"""
+        self.data['email'] = 'nodomain@inemail'
+        response = self.testApp.post('/', data=self.data)
+        assert 'False' in str(response.data)
+        
+    def test_email_duplicate_validation(self):
+        """Test that our form rejects duplicate emails"""
+        self.data2['username'] = 'uniqueusername'
+        #with test_database(self.TEST_DB, (User,)):
+        response = self.testApp.post('/', data=self.data2)
+        assert 'False' in str(response.data)
+    
+    def test_username_duplicate_validation(self):
+        """Test that our form rejects duplicate usernames"""
+        self.data2['email'] = 'email@unique.com'
+        #with test_database(self.TEST_DB, (User,)):
+        response = self.testApp.post('/', data=self.data2)
+        assert 'False' in str(response.data)
+    
+    def test_password_min_length_validation(self):
+        """Test that our form rejects short passwords (under 7 characters)"""
+        self.data['password'] = 'sixsix'
+        self.data['password2'] = 'sixsix'
+        response = self.testApp.post('/', data=self.data)
+        assert 'False' in str(response.data)
+        
+    def test_password_max_length_validation(self):
+        """Test that our form rejects long passwords (over 20 characters)"""
+        self.data['password'] = '22'*11
+        self.data['password2'] = '22'*11
+        response = self.testApp.post('/', data=self.data)
+        assert 'False' in str(response.data)
+        
+    def test_password_fidelity_validation(self):
+        """Test that our form rejects passwords that don't match"""
+        self.data['password'] = 'password'
+        self.data['password2'] = 'drowssap'
+        response = self.testApp.post('/', data=self.data)
+        assert 'False' in str(response.data)
+        
+if __name__ == '__main__':
+    unittest.main()
+        
+```
 
-, then move on to [Step 8...](https://github.com/nicolasjhampton/python_tutorial_game_project/blob/master/blog/step8.md)
+Using this implementation and running the tests gave us the
+passing tests we should have gotten before.
+
+```
+(vpython)Nicolass-MacBook-Pro:GameProject nicolasjhampton$ coverage run _form_tests.py
+..........
+----------------------------------------------------------------------
+Ran 10 tests in 5.917s
+
+OK
+```
+
+And 100% coverage. Well, that took a little more than expected.
+I might go back later and try working out the bugs in the 
+mock database, just so I don't rewrite the database everytime
+I test the forms, but for now, this will work, and pretty well
+considering I had no how to do it.
+
+We'll have to actually use this form and clean up our route in
+[Step 8...](https://github.com/nicolasjhampton/python_tutorial_game_project/blob/master/blog/step8.md)
 
 
 

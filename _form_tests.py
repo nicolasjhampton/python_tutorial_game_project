@@ -1,16 +1,11 @@
 from flask import Flask
+from peewee import *
+from playhouse.test_utils import test_database
 import unittest
 
 import forms
-from models import User
+import models
 
-#Username has to be over 3 and under 50 ascii characters, and unique
-
-#email has to be present and be in email format, and unique
-
-#password has to be over 6 and under 20 characters
-
-#password2 has to match password
 
 class FormTestCase(unittest.TestCase):
 
@@ -25,7 +20,11 @@ class FormTestCase(unittest.TestCase):
         return str(form.validate_on_submit())
 
     def setUp(self):
-        self.testApp = self.setupTestApp.test_client()
+        # self.TEST_DB = SqliteDatabase(':memory:')
+        # self.TEST_DB.connect()
+        # self.TEST_DB.create_tables([User], safe=True)
+        models.DATABASE.connect()
+        models.DATABASE.create_tables([models.User], safe=True)
         """Data designed to pass that we can modify to fail. Reset each test."""
         self.data = {
             'username': 'testUsername',
@@ -33,6 +32,21 @@ class FormTestCase(unittest.TestCase):
             'password': 'password',
             'password2': 'password'
         }
+        self.data2 = {
+            'username': 'testUsername2',
+            'email': 'test2@example.com',
+            'password': 'password',
+            'password2': 'password'
+        }
+        # with test_database(self.TEST_DB, (User,)):
+        models.User.create_user(username=self.data2['username'],
+                                email=self.data2['email'],
+                                password=self.data2['password'])
+        self.testApp = self.setupTestApp.test_client()
+        
+    def tearDown(self):
+        models.User.delete().execute()
+        models.DATABASE.close()
     
     #Username has to be over 3 and under 50 ascii characters, and unique
         
@@ -66,17 +80,19 @@ class FormTestCase(unittest.TestCase):
         response = self.testApp.post('/', data=self.data)
         assert 'False' in str(response.data)
         
-    # def test_email_duplicate_validation(self):
-    #     """Test that our form rejects duplicate emails"""
-        
-    #     response = self.testApp.post('/', data=self.data)
-    #     assert 'False' in str(response.data)
+    def test_email_duplicate_validation(self):
+        """Test that our form rejects duplicate emails"""
+        self.data2['username'] = 'uniqueusername'
+        #with test_database(self.TEST_DB, (User,)):
+        response = self.testApp.post('/', data=self.data2)
+        assert 'False' in str(response.data)
     
-    # def test_username_duplicate_validation(self):
-    #     """Test that our form rejects duplicate usernames"""
-        
-    #     response = self.testApp.post('/', data=self.data)
-    #     assert 'False' in str(response.data)
+    def test_username_duplicate_validation(self):
+        """Test that our form rejects duplicate usernames"""
+        self.data2['email'] = 'email@unique.com'
+        #with test_database(self.TEST_DB, (User,)):
+        response = self.testApp.post('/', data=self.data2)
+        assert 'False' in str(response.data)
     
     def test_password_min_length_validation(self):
         """Test that our form rejects short passwords (under 7 characters)"""

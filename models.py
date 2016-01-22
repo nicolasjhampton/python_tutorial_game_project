@@ -1,14 +1,11 @@
 import datetime
-
 from flask.ext.bcrypt import check_password_hash, generate_password_hash
 from flask.ext.login import UserMixin
-from peewee import * # Peewee convention is to make this very broad import
-
-# This will define the database to be connected to / created 
+from peewee import * 
+ 
 DATABASE = SqliteDatabase('users.db')
 
-# User is based on the 'Model' class, as all our database 
-# objects will be.
+
 class User(UserMixin, Model):
     """Database schema for the User table. All database objects descend from 'Model' class."""
     username = CharField(max_length=50, unique=True)

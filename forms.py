@@ -1,14 +1,16 @@
 from flask_wtf import Form
 from wtforms import PasswordField, StringField
-from wtforms.validators import DataRequired, Email, EqualTo, Length, Regexp
+from wtforms.validators import DataRequired, Email, EqualTo, Length, Regexp, ValidationError
 
-#Username has to be over 3 and under 50 ascii characters, and unique
+from models import User
 
-#email has to be present and be in email format, and unique
+def username_exists(form, field):
+    if User.select().where(User.username == field.data).exists():
+        raise ValidationError('User with that username already exists.')
 
-#password has to be over 6 and under 20 characters
-
-#password2 has to match password
+def email_exists(form, field):
+    if User.select().where(User.email == field.data).exists():
+        raise ValidationError('User with that email already exists.')
 
 class RegistrationForm(Form):
     username = StringField(
@@ -19,13 +21,15 @@ class RegistrationForm(Form):
                    message=("Username should be one word, letters, "
                             "numbers, and underscores only.")),
             Length(min=4),
-            Length(max=50)
+            Length(max=50),
+            username_exists
             ])
     email = StringField(
         'email',
         validators=[
             DataRequired(),
-            Email()
+            Email(),
+            email_exists
             ])
     password = PasswordField(
         'password',

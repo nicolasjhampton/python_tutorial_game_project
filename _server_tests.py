@@ -1,27 +1,9 @@
-# I've deleted the imports for tempfile and os
-# since they were for creating a tempfile for a database
-# and I'm going to make one in memory instead
-import unittest
-
-# Redirects the database file from our model's  
-# database file declaration to a test location
-from playhouse.test_utils import test_database
 from peewee import *
+from playhouse.test_utils import test_database
+import unittest
 
 import server
 from models import User
-
-# Instead of running models.initialize, which would 
-# use the model's DATABASE variable directed at the
-# 'models.db' file, we're going to direct everything
-# to our TEST_DB in memory. I also decided to put all
-# of this in the setUp method. I have no idea if it
-# works there, but if it does, it will get these 
-# variables out of the global scope, which a 
-# principal of functional programming
-# TEST_DB = SqliteDatabase(':memory:')
-# TEST_DB.connect()
-# TEST_DB.create_tables([User], safe=True)
 
 
 class AppTestCase(unittest.TestCase):
