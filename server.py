@@ -2,7 +2,12 @@ from flask import Flask, g, request
 
 import models
 
-# server settings
+
+#####################
+# Server Settings
+##################### 
+
+
 DEBUG = True
 PORT = 8000
 HOST = '127.0.0.1'
@@ -21,6 +26,12 @@ def after_request(response):
     g.db.close()
     return response
     
+    
+#####################
+# Routes
+##################### 
+
+
 @app.route('/register', methods=['GET'])
 def register():
     """GET route for our register page"""
@@ -36,6 +47,7 @@ def post_registration():
                             email= userinfo['email'],
                             password= userinfo['password'])
     return "{} is now Registered!".format(models.User.get(email =  userinfo['email']))
-    
+
+
 if __name__ == '__main__':
     app.run(debug=DEBUG, host=HOST, port=PORT)
