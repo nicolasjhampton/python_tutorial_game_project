@@ -1,3 +1,4 @@
 /blog/scrap.txt
 /htmlcov
 /__pycache__
+.coverage

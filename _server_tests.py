@@ -8,16 +8,14 @@ from models import User
 
 class AppTestCase(unittest.TestCase):
     """Test suite for our Flask server app"""
-    
-    
+
     #####################
     # test conditions
-    ##################### 
-
+    #####################
 
     def setUp(self):
-        """Connects to a test database, sets test server settings, 
-           defines mock user info, and runs a test client before 
+        """Connects to a test database, sets test server settings,
+           defines mock user info, and runs a test client before
            every test (Doesn't close TEST_DB in memory)"""
         # Creates a mock database in memory
         self.TEST_DB = SqliteDatabase(':memory:')
@@ -35,24 +33,20 @@ class AppTestCase(unittest.TestCase):
             'password2': 'password'
         }
 
-
     #####################
     # GET method tests
-    ##################### 
-
+    #####################
 
     def test_register_url(self):
         """Test for a 200 status code from our registration's GET route"""
         with test_database(self.TEST_DB, (User,)):
             rv = self.app.get('/register')
             self.assertEqual(rv.status_code, 200)
-            
-            
+
     #####################
     # POST method tests
-    ##################### 
-            
-             
+    #####################
+
     def test_registration(self):
         """Test User creation through our POST route"""
         with test_database(self.TEST_DB, (User,)):
@@ -62,8 +56,7 @@ class AppTestCase(unittest.TestCase):
             self.assertEqual(User.get().email, 'test@example.com')
             self.assertNotEqual(User.get().password, 'password')
             self.assertEqual(rv.status_code, 200)
-            
-    
+
+
 if __name__ == '__main__':
     unittest.main()
-        
