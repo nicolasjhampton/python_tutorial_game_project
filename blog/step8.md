@@ -333,7 +333,7 @@ a few more items on our master plan...
             - A redirection status code will be sent back (Done)
 
             
-And now we have two modified files, [server.py]() and [_server_tests.py]()
+And now we have two modified files, [server.py](https://github.com/nicolasjhampton/python_tutorial_game_project/blob/a077fd027cb367230281baa2ad78658ab51f7781/server.py) and [_server_tests.py](https://github.com/nicolasjhampton/python_tutorial_game_project/blob/a077fd027cb367230281baa2ad78658ab51f7781/_server_tests.py)
             
             
 Let's move on to breaking out of the backend and into the frontend
