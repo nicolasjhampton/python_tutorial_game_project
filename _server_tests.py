@@ -55,7 +55,7 @@ class AppTestCase(unittest.TestCase):
             self.assertEqual(User.get().username, 'testUsername')
             self.assertEqual(User.get().email, 'test@example.com')
             self.assertNotEqual(User.get().password, 'password')
-            self.assertEqual(rv.status_code, 200)
+            self.assertEqual(rv.status_code, 302)
 
     def test_bad_username(self):
         """Test username error through our POST route"""

@@ -232,21 +232,20 @@ Since we're missing that step, let's write it, then bring it together...
             - Emails have to be present and be in email format (Done)
             - Password have to be over 6 and under 20 characters (Done)
             - password2 has to match password (Done)
-        * We have to test our custom validators (Where we are now)
-            - Usernames have to be unique in the database
-            - Emails have to be unique
-     2. That validated information is passed the the POST method and entered in the database 
+        * We have to test our custom validators (Done)
+            - Usernames have to be unique in the database (Done)
+            - Emails have to be unique (Done)
+     2. That validated information is passed the the POST method and entered in the database (Where we are now)
         * We need to re-write our POST route test to check for a new database entry
             - A new database entry will be made
             - A redirection status code will be sent back 
             
 
-The reason a redirection status code will occur is because after
-someone successfully creates a user, they, eventually, will be sent 
-to the login page. Right now the redirect will be back to the 
-register page, but I think we should still be about to get a
-302 status code if we use flask's redirect method instead of 
-render_template or simple text. 
+A redirection status code will occur after someone successfully 
+creates a user and is sent to the login page. Right now the 
+redirect will be back to the register page, but I think we should 
+still get a 302 status code if we use flask's redirect method 
+instead of render_template or simple text. 
 
 In our registration test, we're only going to change one line.
 The test is already designed to test whether a new User has been
@@ -304,5 +303,40 @@ def test_registration(self):
             self.assertEqual(rv.status_code, 200)
 
 ```
+
+These all failed properly, then I rewrote and refactored both
+POST and GET methods on the /register route into one function.
+I started them as two separate routes for clarity, but now
+they seem to work well together. 
+
+```python
+
+@app.route('/register', methods=['GET', 'POST']) # Function handles both GET and POST requests now
+def post_registration():
+    """GET and POST route for our register page to create a User"""
+    form = forms.RegistrationForm() # Flask-WTF automatically passes the request.form object to this class
+    if form.validate_on_submit(): # this checks for a submission and validation at the same time
+        models.User.create_user(username=form.username.data,
+                                email=form.email.data,
+                                password=form.password.data)
+        return redirect(url_for('post_registration')) # This redirect will produce the 302 Redirect status code
+    return "Registration Page"
+    
+```
+
+With these changes, all 6 server tests pass, and we can check off
+a few more items on our master plan...
+
+     2. That validated information is passed the the POST method and entered in the database (Done)
+        * We need to re-write our POST route test to check for a new database entry (Done)
+            - A new database entry will be made (Done)
+            - A redirection status code will be sent back (Done)
+
+            
+And now we have two modified files, [server.py]() and [_server_tests.py]()
+            
+            
+Let's move on to breaking out of the backend and into the frontend
+in [step 9](https://github.com/nicolasjhampton/python_tutorial_game_project/blob/master/blog/step8.md) 
 
 
