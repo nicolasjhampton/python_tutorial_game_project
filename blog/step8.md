@@ -235,5 +235,74 @@ Since we're missing that step, let's write it, then bring it together...
         * We have to test our custom validators (Where we are now)
             - Usernames have to be unique in the database
             - Emails have to be unique
-     2. We're missing something here to bring the form together with the route 
-        * (Tests tests tests, blah blah blah)
+     2. That validated information is passed the the POST method and entered in the database 
+        * We need to re-write our POST route test to check for a new database entry
+            - A new database entry will be made
+            - A redirection status code will be sent back 
+            
+
+The reason a redirection status code will occur is because after
+someone successfully creates a user, they, eventually, will be sent 
+to the login page. Right now the redirect will be back to the 
+register page, but I think we should still be about to get a
+302 status code if we use flask's redirect method instead of 
+render_template or simple text. 
+
+In our registration test, we're only going to change one line.
+The test is already designed to test whether a new User has been
+made in the database, we just need to change the status code we're
+looking for to 302.
+
+Also, we're going to add 4 more tests. All of those tests are going
+to confirm what happens when the form does not validate. In all
+four cases, the User count should remain at 0 and the status 
+coded be 200, as we'll return to our /register route's 
+render_template (or text) command. 
+
+```python
+def test_registration(self):
+        """Test User creation through our POST route"""
+        with test_database(self.TEST_DB, (User,)):
+            rv = self.app.post('/register', data=self.data)
+            self.assertEqual(User.select().count(), 1)
+            self.assertEqual(User.get().username, 'testUsername')
+            self.assertEqual(User.get().email, 'test@example.com')
+            self.assertNotEqual(User.get().password, 'password')
+            self.assertEqual(rv.status_code, 302)
+
+    def test_bad_username(self):
+        """Test username error through our POST route"""
+        self.data['username'] = 'non*ascii*character'
+        with test_database(self.TEST_DB, (User,)):
+            rv = self.app.post('/register', data=self.data)
+            self.assertEqual(User.select().count(), 0)
+            self.assertEqual(rv.status_code, 200)
+
+    def test_bad_email(self):
+        """Test email error through our POST route"""
+        self.data['email'] = 'noatsymbolordomain'
+        with test_database(self.TEST_DB, (User,)):
+            rv = self.app.post('/register', data=self.data)
+            self.assertEqual(User.select().count(), 0)
+            self.assertEqual(rv.status_code, 200)
+
+    def test_bad_password(self):
+        """Test password error through our POST route"""
+        self.data['password'] = 'short'
+        self.data['password2'] = 'short'
+        with test_database(self.TEST_DB, (User,)):
+            rv = self.app.post('/register', data=self.data)
+            self.assertEqual(User.select().count(), 0)
+            self.assertEqual(rv.status_code, 200)
+
+    def test_bad_password_confirmation(self):
+        """Test password confirmation error through our POST route"""
+        self.data['password2'] = 'notpassword1'
+        with test_database(self.TEST_DB, (User,)):
+            rv = self.app.post('/register', data=self.data)
+            self.assertEqual(User.select().count(), 0)
+            self.assertEqual(rv.status_code, 200)
+
+```
+
+

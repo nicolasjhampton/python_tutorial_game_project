@@ -1,5 +1,6 @@
 from flask import Flask, g, request
 
+import forms
 import models
 
 
@@ -33,22 +34,23 @@ def after_request(response):
 #####################
 
 
-@app.route('/register', methods=['GET'])
-def register():
-    """GET route for our register page"""
-    return "Registration Page"
+# @app.route('/register', methods=['GET'])
+# def register():
+#     """GET route for our register page"""
+#     return "Registration Page"
 
 
-@app.route('/register', methods=['POST'])
+@app.route('/register', methods=['GET', 'POST'])
 def post_registration():
     """POST route for our register page to create a User"""
-    userinfo = dict(request.form.items())
-
-    # **userinfo would work, but we have to get rid of password2 first
-    models.User.create_user(username=userinfo['username'],
-                            email=userinfo['email'],
-                            password=userinfo['password'])
-    return "{} Registered!".format(models.User.get(email=userinfo['email']))
+    form = forms.RegistrationForm()
+    if form.validate_on_submit():
+        # **userinfo would work, but we have to get rid of password2 first
+        models.User.create_user(username=form.username.data,
+                                email=form.email.data,
+                                password=form.password.data)
+        return "{} Registered!".format(models.User.get(email=form.email.data))
+    return "Registration Page"
 
 
 if __name__ == '__main__':

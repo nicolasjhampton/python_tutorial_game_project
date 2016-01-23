@@ -14,7 +14,7 @@ class User(Model):  # add UserMixin to this class later
     email = CharField(unique=True)
     password = CharField(max_length=20)
     joined_at = DateTimeField(default=datetime.datetime.now)
-    invalidValueError = "email"
+    invalidValueError = "User already exists"
 
     class Meta:
         database = DATABASE
@@ -36,7 +36,7 @@ class User(Model):  # add UserMixin to this class later
         if len(username) > 3 and len(username) < 51 and pattern.match(username):
             return username
         else:
-            cls.error = "username"
+            cls.invalidValueError = "username"
             return None
 
     def check_new_password(cls, password):
@@ -44,7 +44,7 @@ class User(Model):  # add UserMixin to this class later
         if len(password) > 6 and len(password) < 20:
             return password
         else:
-            cls.error = "password"
+            cls.invalidValueError = "password"
             return None
 
     @classmethod
@@ -64,11 +64,7 @@ class User(Model):  # add UserMixin to this class later
                 email=email,
                 password=cls.hash_password(passwordChecked))
         except IntegrityError:
-            raise ValueError("User already exists")
-        except UnboundLocalError:
-            # Thrown if the username, password, or email are invalid
-            raise ValueError("Invalid {}".format(cls.invalidValueError))
-
+            raise ValueError(cls.invalidValueError)
 
 def initialize():
     """Called when the program starts if not called as an imported module"""

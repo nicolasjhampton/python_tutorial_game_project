@@ -57,6 +57,39 @@ class AppTestCase(unittest.TestCase):
             self.assertNotEqual(User.get().password, 'password')
             self.assertEqual(rv.status_code, 200)
 
+    def test_bad_username(self):
+        """Test username error through our POST route"""
+        self.data['username'] = 'non*ascii*character'
+        with test_database(self.TEST_DB, (User,)):
+            rv = self.app.post('/register', data=self.data)
+            self.assertEqual(User.select().count(), 0)
+            self.assertEqual(rv.status_code, 200)
+
+    def test_bad_email(self):
+        """Test email error through our POST route"""
+        self.data['email'] = 'noatsymbolordomain'
+        with test_database(self.TEST_DB, (User,)):
+            rv = self.app.post('/register', data=self.data)
+            self.assertEqual(User.select().count(), 0)
+            self.assertEqual(rv.status_code, 200)
+
+    def test_bad_password(self):
+        """Test password error through our POST route"""
+        self.data['password'] = 'short'
+        self.data['password2'] = 'short'
+        with test_database(self.TEST_DB, (User,)):
+            rv = self.app.post('/register', data=self.data)
+            self.assertEqual(User.select().count(), 0)
+            self.assertEqual(rv.status_code, 200)
+
+    def test_bad_password_confirmation(self):
+        """Test password confirmation error through our POST route"""
+        self.data['password2'] = 'notpassword1'
+        with test_database(self.TEST_DB, (User,)):
+            rv = self.app.post('/register', data=self.data)
+            self.assertEqual(User.select().count(), 0)
+            self.assertEqual(rv.status_code, 200)
+
 
 if __name__ == '__main__':
     unittest.main()
