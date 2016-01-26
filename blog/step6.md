@@ -11,10 +11,10 @@ can store this data in. I also know that...
 - stores the data we recevied
 
 
-Wait, I don't know any of that! Yeah, none of that is happening,
-and I live in a dream world. But I could tell you the sky is
-falling, and if you didn't test it you might believe me,
-so we have to...
+Wait, I actually don't know any of that! Yeah, none of that 
+is happening, and I live in a dream world. But I could tell 
+you the sky is falling, and if you didn't test it you might 
+believe me, so we have to...
 
 
 - (test that) flask received our data...
@@ -26,10 +26,10 @@ so we have to...
 - (test that it) stores the data we recevied
 
 
-Yeah, I'm skipping that form part for a second. No, I'm not
-sure that I can skip that step right now, but I'd rather start
-this as simple as possible. We can go ahead and plug this into 
-our plan now.
+Yeah, I'm skipping that form part for a second. (No, I'm not
+sure if I can skip forms right now and make this work, but I'd 
+rather try to start this as simple as possible.) We can go 
+ahead and plug this into our plan now.
 
 
 - By then, I can build the flask server that will serve our first route... (Uh, yeah, sure, let's do this)
@@ -54,10 +54,11 @@ our plan now.
 
 ### 1. Testing that the data showed up
 
-I found myself being a little stumped as to what would be a
+
+I found myself a little stumped as to what could be a
 testable sign that the server had received our data, so I
-went back to the tests for Kenneth's tacocat project. My
-eventual strategy wasn't in the user's tests, though. It 
+went back to the tests for Kenneth's tacocat project. I didn't
+find my eventual strategy in the user tests, however. It 
 was in the tests for the tacos...
 
 ```python
@@ -81,11 +82,11 @@ was in the tests for the tacos...
             
 ```
 
+
 Why waste time testing if flask got our information??? Flask
-is our middleman (or middlewoman, for all those ladies also 
-aspiring to be useless dead weight obstructing efficancy)
-between the user and the database. Let's just check the 
-database! So... 
+is our inbetween for the user and the database. Let's just 
+check the database! So... 
+
 
 ```python
 
@@ -105,9 +106,11 @@ database! So...
             
 ```
 
+
 Now, with this test looking only one line away from our 
 ```test_registration``` test in [_server_tests.py](https://github.com/nicolasjhampton/python_tutorial_game_project/blob/cb14fba931e43fcfcf12e4faf7e10a42a16e73d7/_server_tests.py), I think
 it would be perfectly acceptable to combine the two...
+
 
 ```python
 
@@ -128,6 +131,7 @@ it would be perfectly acceptable to combine the two...
             
 ```
 
+
 Perfect! The test is designed to test everything in our objectives
 for the database connection, and a little more...
 
@@ -139,6 +143,7 @@ for the database connection, and a little more...
         
 
 And the test fails just like it should...
+
 
 ```
 (vpython)Nicolass-MacBook-Pro:GameProject nicolasjhampton$ coverage run _server_tests.py
@@ -157,20 +162,24 @@ Ran 2 tests in 0.195s
 FAILED (failures=1)
 ```
 
-So let's go make a User count go from zero to one!
+
+So let's go make a User count in our table go from zero to one!
+
 
 ### 2. Making the User instance in the database from POST
+
 
 A couple things about doing this you should review from 
 Kenneth's "Build A Social Network With Flask" course:
 
-- We open the database connection with flask's before_request method
+- We open the database connection with flask's ```before_request``` decorator method
 
-- We attach the database to flask's g global object inside before_request
+- We attach the database to flask's ```g``` global object inside ```before_request```
 
-- Then the route is ran. The route accesses the database on the g object
+- Then the route is ran. The route accesses the database on the ```g``` object
 
-- After the route is ran, flask's after_request method takes the response, closes the database connection, and returns the response
+- After the route is ran, flask's ```after_request``` method takes the response, closes the database connection, and returns the ```response```
+
 
 (This is all in [this video](https://teamtreehouse.com/library/build-a-social-network-with-flask/takin-names/before-and-after-requests))
 
@@ -186,12 +195,13 @@ including our User model and flask's ```request``` object to get
 our post data. That said, our POST route alone
 looks something like this...
 
+
 ```python
 
 @app.route('/register', methods=['POST'])
 def post_registration():
     """POST route for our register page to create a User"""
-    userinfo = dict(request.form.items())
+    userinfo = dict(request.form.items()) # The request.form attribute returns an immutable multidict object
     
     models.User.create_user(username= userinfo.username,
                             email= userinfo.email,
@@ -200,7 +210,9 @@ def post_registration():
     
 ```
 
-Then I ran my tests and got...
+
+Then I ran my tests...
+
 
 ```
 (vpython)Nicolass-MacBook-Pro:GameProject nicolasjhampton$ coverage run _server_tests.py
@@ -251,11 +263,14 @@ Ran 2 tests in 0.269s
 FAILED (errors=1)
 ```
 
-Because I always forget how to properly access data structures.
 
-Dictionaries are fun.```userinfo.username``` equals bad. ```userinfo['email']``` equals good.
+Aaannnd... I forget how to properly access data structures.
+
+Me say Dictionaries good.```userinfo.username``` bad. ```userinfo['email']``` good.
+
 How did I figure that out? I threw ```import pdb; pdb.set_trace()``` inside the route
 and checked the variable.
+
 
 ```
 (vpython)Nicolass-MacBook-Pro:GameProject nicolasjhampton$ coverage run _server_tests.py
@@ -272,7 +287,9 @@ and checked the variable.
 (Pdb) quit()
 ```
 
-Well, that was simple. Let's try this again...
+
+Well, that was simple. Let's make that syntax change and try this again...
+
 
 ```
 (vpython)Nicolass-MacBook-Pro:GameProject nicolasjhampton$ coverage run _server_tests.py
@@ -283,13 +300,16 @@ Ran 2 tests in 0.740s
 OK
 ```
 
+
 BOOM! 2 tests passed and 95% test coverage. We can cross off a
 few of these items here...
+
 
     2. Connect our POST route to our database (Freakin' DONE yo!)
         * We can test that flask received our data in the request object (Done)
         * We can test that flask is connected to the database during our request (Done)
         * We can test that flask stored the data we received (Done)
+        
 
 Told ya we'd start to move faster later on.
         

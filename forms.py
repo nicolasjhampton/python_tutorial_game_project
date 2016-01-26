@@ -54,8 +54,18 @@ class RegistrationForm(Form):
 
     # Valid confirm password field parameters
     password2 = PasswordField(
-        'password2',
+        'confirm password',
         validators=[
             DataRequired(),
             EqualTo('password', message='Passwords must match')
         ])
+
+
+class LoginForm(Form):
+
+    # Valid username field parameters
+    username = StringField('username', validators=[DataRequired()])
+
+    # Valid password field parameters
+    password = PasswordField('password', validators=[DataRequired()])
+    

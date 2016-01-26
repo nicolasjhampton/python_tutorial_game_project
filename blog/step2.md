@@ -24,6 +24,7 @@ I know, and shoot for completing that. From there, we'll
 lookout and make a new plan, until we meet our imaginary
 user at the keystone of what we're building.
 
+
 So, I'm thinking...
 
 - I'll design the database table that stores the user data (done)
@@ -33,6 +34,15 @@ So, I'm thinking...
 - By then, I can build the flask server that will serve our first route...
 
 - The HTML register user screen that creates new users.
+
+
+> <img alt="By New York : Underwood & Underwood, publishers (US-LOC) [Public domain], via Wikimedia Commons, https://commons.wikimedia.org/wiki/File%3ADunce_cap_from_LOC_3c04163u.png" src="our_fearless_leader.png" width="10%">
+> *<b>Things our fearless leader doesn't know yet...</b>*
+>
+> Fair warning: this plan isn't complete, nor correct. We'll
+> tweek it and fill it out as time goes on, however, and by 
+> the time we finish it, we'll have a much better blueprint
+> of how to build parts of the stack.
 
 
 That seems like a reasonable plan to start out with. Leaves
@@ -187,6 +197,7 @@ these 2 tests. Instructions can be found in the
 ["Cryptographic Hashing with Flask-Bcrypt"](https://teamtreehouse.com/library/build-a-social-network-with-flask/making-strong-users/cryptographic-hashing-with-flaskbcrypt)lesson. 
 That's not my problem, I'm here for the tests
 and functions. Good luck with writing that...
+
 
 ### 5. Breaking down into units of code and tests
 

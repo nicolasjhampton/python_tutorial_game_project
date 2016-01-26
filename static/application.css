@@ -1,0 +1,64 @@
+body {
+    display: flex;
+}
+
+#container {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+#userStrip {
+    background: mediumpurple;
+    display: flex;
+    justify-content: space-between;
+}
+
+#mainPage {
+    display: flex;
+    
+}
+
+#sideMenu {
+    background: royalblue;
+    flex: 1;
+}
+
+#main {
+    background: deepskyblue;
+    display: flex;
+    flex: 4;
+    justify-content: center;
+}
+
+form {
+    background: blue;
+    display: flex;
+    flex-direction: column;
+    width: 75%;
+    align-items: center;
+    margin: 16px 0px;
+}
+
+.field {
+    display: flex;
+    margin: 8px 0px;
+    width: 75%;
+}
+
+.form button {
+    margin: 8px 0px;
+    width: 150px;
+}
+
+.field input {
+    width: 100%;
+}
+
+.userStrip {
+    margin: 16px 16px;
+}
+
+.sideMenu {
+    margin: 16px 16px;
+}

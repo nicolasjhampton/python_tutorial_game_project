@@ -8,10 +8,24 @@ Oh s%#&, wrong server, had a flashback. Tip your waiter, people. Anyways...
 
 (1/18/16) Let's quick take a glance at that roadmap in step 2...
 
+
 - I'll design the database table that stores the user data (done)
 
-    * Winged it mostly (done)
-
+    1. I need to create and delete a User Table (done)
+        * I'll write 2 tests for this (done)
+            - Test that the User table exists (done)
+            - Test that the User table can be dropped  (done)
+    
+    3. I need to be able to create, retrieve, and delete User entries (done)
+        * I'll write a few tests for this (done)
+            - Test that User entries exist and can be recalled by username and email (done)
+            - Test that each entry is uniquely defined by a user_id (done)
+    
+    2. I need to preserve the integrity of the User Table (done)
+        * This will involve testing values and possible errors (done)
+            - Test that passwords are stored, hashed, and comparable (done)
+            - Test that errors are thrown for data limits (done)
+            
 - Then I can add login,logout, and password hash information to that database (mostly done)
 
     1. Use B-crypt to hash the password stored in our User model (done)
@@ -151,7 +165,7 @@ makes testing the models easier. Well, lo and behold...
 
 Aha! All this time I've been creating and deleting the 
 development database every test! I'll have to go back and let
-our fearless leader know later. Appearently, test_database()
+our fearless leader know later. Appearently, ```test_database()```
 allows us to use a database in memory (see the ```TEST_DB = SqliteDatabase(':memory:')```
 line in the setup) so we don't even have to bother with a
 file system store for testing. Moving on, because this isn't 
@@ -371,7 +385,7 @@ if __name__ == '__main__':
 ```
 
 All that to test a little 200 status code. It's a start...
-I think. I also pulled a test for [registration]() almost 
+I think. I also pulled a test for registration almost 
 verbatim from Kenneth's tacocat tests, as it's pretty
 clear that's one of the next test we'll need, and commented
 it out.

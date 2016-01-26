@@ -1,19 +1,19 @@
 ## Step 7 - Nobody likes an audit, so how do we test a Form?
 
-(1/21/16) There's a few reasons why I've resisted Kenneth Love's project 
-order in "Build A Social Network With Flask" course, and 
-none of them have to do at all with it being a bad way to
-go about things. However...
+(1/21/16) There's a few reasons why I've deviated from Kenneth 
+Love's project instructions in "Build A Social Network With Flask" 
+course, and none of them have to do at all with it being a bad 
+way to go about things. However, for me...
 
-- Some of the joints of the project seemed to be obscured...
+- Some of the joints of the project seemed to be obscured.
 
-- ...thus, a student would have a hard time isolating each piece of the stack...
+- As a student I had a hard time isolating each piece of the stack.
 
-- ...and would find it impossible to write tests for it later on.
+- I needed to break this down to write tests for it later on.
 
-This problem, from what I can see now, is at its most pronounced
-when it comes to our forms. The forms is designed to rest inside
-the routes of our server, so already we run into trouble pulling
+This problem for me becomes most pronounced
+when it comes to forms. Forms are designed to rest inside
+the routes of our server, so already I run into trouble pulling
 them apart. To illistrate what I'm talking about, let's take a 
 look at this snippet of source code from the ["Registration View"](https://teamtreehouse.com/library/build-a-social-network-with-flask/takin-names/registration-view) 
 video...
@@ -36,15 +36,22 @@ def register():
 So, looking at this, I can see that ```validate_on_submit()``` seems
 to be a method that returns a ```True``` value when a form is valid.
 I can also see that our ```form``` variable comes from our form
-import, and that RegisterForm() seems to be from that. If you know
-even more, you know that we're going to write RegisterForm, and
-that is what we're testing. Question:
+import, and that ```RegisterForm()``` seems to be from that. If you know
+even more, you know that we're going to write ```RegisterForm```, and
+that class is what we're testing. 
+
+
+Question:
+
 
 - Where is our data being entered into ```forms.RegsiterForm()```?
 
-The Answer:
+
+Answer:
+
 
 - flask-wtf inserts our request.form data automatically from flask. [See the docs](https://flask-wtf.readthedocs.org/en/latest/quickstart.html#validating-forms).
+
 
 If you're like me, this is where you start to cuss. If flask is
 automatically passing this request data to flask-wtf (or flask-wtf
@@ -63,7 +70,9 @@ used a test database. So, with a willingness to roll up my sleeves
 and get dirty, I started a ```_form_tests.py``` file, and started down
 a small, uncharted territory...
 
+
 ### 1. The Architecture of a test
+
 
 What I really needed, because of the flask / flask-wtf link, was
 a clean, mock test route to stick a form into and test against.
@@ -98,7 +107,8 @@ decorator syntax or something, but that really shouldn't be
 the problem here. What's really going on is that I shouldn't
 be attaching the route to the FlaskClient object, but to 
 ```setupTestApp```, the Flask object we attached to the FlaskClient. 
-I'll try again...
+I try again...
+
 
 ```python
 (vpython)Nicolass-MacBook-Pro:GameProject nicolasjhampton$ python
@@ -135,14 +145,19 @@ Traceback (most recent call last):
 TypeError: 'bool' object is not callable
 ```
 
+
 Soooo, WTF???!!! None of these errors seem to lead back to 
 our file! Lesson to learn: try not to make errors sound 
 more complicated than they are. Let's look at the last 
 line of the error...
 
+
 ```TypeError: 'bool' object is not callable```
 
-What's the only boolean I'm really 'calling'?
+
+What's the only boolean I'm really 'calling'? Could it
+be the route's return value of True? 
+
 
 ```python
 >>> @setupTestApp.route('/', methods=['POST'])
@@ -150,8 +165,10 @@ What's the only boolean I'm really 'calling'?
 ...     return True
 ```
 
+
 Maybe I can't return a boolean from a route? Let's try
 again...
+
 
 ```python
 (vpython)Nicolass-MacBook-Pro:GameProject nicolasjhampton$ python
@@ -178,23 +195,30 @@ IndentationError: unexpected indent
 >>>
 ```
 
+
 Sweet, we've got a response! Now what the heck is in there?
 
-```
+
+```python
 >>> dir(response)
 ['__call__', '__class__', '__delattr__', '__dict__', '__dir__', '__doc__', '__enter__', '__eq__', '__exit__', '__format__', '__ge__', '__getattribute__', '__gt__', '__hash__', '__init__', '__le__', '__lt__', '__module__', '__ne__', '__new__', '__reduce__', '__reduce_ex__', '__repr__', '__setattr__', '__sizeof__', '__str__', '__subclasshook__', '__weakref__', '_ensure_sequence', '_get_mimetype_params', '_on_close', '_status', '_status_code', 'accept_ranges', 'add_etag', 'age', 'allow', 'autocorrect_location_header', 'automatically_set_content_length', 'cache_control', 'calculate_content_length', 'call_on_close', 'charset', 'close', 'content_encoding', 'content_language', 'content_length', 'content_location', 'content_md5', 'content_range', 'content_type', 'data', 'date', 'default_mimetype', 'default_status', 'delete_cookie', 'direct_passthrough', 'expires', 'force_type', 'freeze', 'from_app', 'get_app_iter', 'get_data', 'get_etag', 'get_wsgi_headers', 'get_wsgi_response', 'headers', 'implicit_sequence_conversion', 'is_sequence', 'is_streamed', 'iter_encoded', 'last_modified', 'location', 'make_conditional', 'make_sequence', 'mimetype', 'mimetype_params', 'response', 'retry_after', 'set_cookie', 'set_data', 'set_etag', 'status', 'status_code', 'stream', 'vary', 'www_authenticate']
 ```
 
+
 Typical response. ```get_data()``` seems like a sure bet...
+
 
 ```python
 >>> response.get_data()
 b'The Bus'
 ```
+
+
 'The Bus'. That's great! That's what I sent. Except for that 
 ```b``` right before it. For those that don't know, that 
 indicates a byte type. Not trying to work with a byte type.
 Let's string that up...
+
 
 ```python
 >>> str(response.get_data())
@@ -203,16 +227,20 @@ Let's string that up...
 "b'True'"
 ```
 
+
 Alright. Not exactly what I want, but if I wanted to test for
 The Bus...
+
 
 ```python
 >>> 'Bus' in str(response.data)
 True
 ```
 
+
 BOOM! Something testable. Let's think on this for a sec, then
 try to make this into something useful...
+
 
 ```python
 Python 3.5.0 (v##################, Sep 12 2015, 11:00:19) 
@@ -233,9 +261,11 @@ Type "help", "copyright", "credits" or "license" for more information.
 True
 ```
 
+
 Oh, that's pretty much our test. By this point, it's just a
 little rearraigning here and there, replacing a boolean with
 a expression that returns a boolean, and...
+
 
 ```python
 
@@ -280,12 +310,14 @@ if __name__ == '__main__':
 
 ```
 
+
 Alright. I think that's set up, but I don't expect to get any
 good results until I have a [forms.py](https://github.com/nicolasjhampton/python_tutorial_game_project/blob/bfcb671b178d31f9e2f62f8428d6213bc02bb8f1/forms.py) file to import, so let's
 quick set up the boilerplate. I originally went to the [wtforms docs](https://wtforms.readthedocs.org/en/latest/fields.html#field-definitions)
 to try and reason what would be the absolute least amount of info I
 needed to make a form, but ultimately found Kenneth's [Flask-WTF](https://teamtreehouse.com/library/build-a-social-network-with-flask/takin-names/flaskwtf-forms)
 class to give the clearest answer...
+
 
 ```python
 
@@ -302,7 +334,9 @@ class RegistrationForm(Form):
     
 ```
 
+
 Seems right, right??? Nothing to do but to run the [_form_tests.py](https://github.com/nicolasjhampton/python_tutorial_game_project/blob/bfcb671b178d31f9e2f62f8428d6213bc02bb8f1/_form_tests.py) file and see...
+
 
 ```
 (vpython)Nicolass-MacBook-Pro:GameProject nicolasjhampton$ python _form_tests.py
@@ -322,6 +356,7 @@ Ran 1 test in 0.058s
 FAILED (failures=1)
 ```
 
+
 Perfect! Now, just to be sure, I'm going to see if we got 
 our other possible boolean answer by changing our final
 assertion from ```assert 'False' in str(response.data)``` to 
@@ -337,6 +372,7 @@ Ran 1 test in 0.098s
 OK
 ```
 
+
 Great! So our test is sending a boolean for each case, we're
 testing from as simple an enviornment as we can, and we're ready
 to write some code. I'm going to make a few more tests in [_form_tests.py](https://github.com/nicolasjhampton/python_tutorial_game_project/blob/bed17c290be272fda1cfd8a4bc5b490156be68be/_form_tests.py) 
@@ -346,7 +382,8 @@ look if you want, but a lot of it looks pretty repeative.
 
 ### 2. How does a form work with the database?
 
-My goals with these 8 tests is to make fields that only validate
+
+My goal with these 8 tests is to make fields that only validate
 after satisfying certain constraints:
 
 
@@ -369,6 +406,7 @@ However, I do have two  other requirements...
 
 and two extra tests commented out:
 
+
 ```python
 
     def test_email_duplicate_validation(self):
@@ -385,8 +423,9 @@ and two extra tests commented out:
     
 ```
 
+
 These last two tests in [_form_tests.py](https://github.com/nicolasjhampton/python_tutorial_game_project/blob/bed17c290be272fda1cfd8a4bc5b490156be68be/_form_tests.py) are supposed to make sure our username
-and email fields woun't be duplicates of other entries in
+and email fields won't allow duplicates of other entries in
 the database. In order to make that test, though, we need a 
 greater understanding not only of the form itself, but
 how it interacts with the database. For now, I'm putting 
@@ -403,7 +442,21 @@ Wait, couldn't these constraints fill in our plan?...
 
 - I'll design the database table that stores the user data... (done)
 
-    1. Winged it mostly (done)
+    1. I need to create and delete a User Table (done)
+        * I'll write 2 tests for this (done)
+            - Test that the User table exists (done)
+            - Test that the User table can be dropped  (done)
+    
+    3. I need to be able to create, retrieve, and delete User entries (done)
+        * I'll write a few tests for this (done)
+            - Test that User entries exist and can be recalled by username and email (done)
+            - Test that each entry is uniquely defined by a user_id (done)
+    
+    2. I need to preserve the integrity of the User Table (done)
+        * This will involve testing values and possible errors (done)
+            - Test that passwords are stored, hashed, and comparable (done)
+            - Test that errors are thrown for data limits (done)
+
 
 - ...then add login,logout, and password hash information to that database. (mostly done)
 
@@ -417,6 +470,7 @@ Wait, couldn't these constraints fill in our plan?...
             - one to check a user id is present after user creation (done)
             - **another to check a login status (in or out) is present (pushing this to later)**
 
+
 - By then, I can build the flask server that will serve our first route... (Done)
 
     1. There will be a url to get to a register page (Done)
@@ -428,6 +482,7 @@ Wait, couldn't these constraints fill in our plan?...
         * We can test that flask received our data in the request object (Done)
         * We can test that flask is connected to the database during our request (Done)
         * We can test that flask stored the data we received (Done)
+            
             
 - ...and a form to validate the registration data sent via post...
      
@@ -441,6 +496,7 @@ Wait, couldn't these constraints fill in our plan?...
             - Usernames have to be unique in the database
             - Emails have to be unique
         
+        
 - ...from the HTML registration screen that creates new users.
 
     1. We need a register prompt (oh, this makes sense)
@@ -448,13 +504,17 @@ Wait, couldn't these constraints fill in our plan?...
         * We can test... (Blah blah blah)
 
 
+Our partial plan is getting to be a more complete set of instructions
+for how to work our way from the back-end to the front...
+
 Watching the video, I realized that we have to create our own
 validator functions in order to check for duplicates in the database,
 and that requires importing the User model. In order to mock this,
 I think we can use the ```test_database``` method from our playhouse
 package to create a test database to query against for our tests...
 
-with a little work to our setUp method...
+with a little work to our ```setUp``` method...
+
 
 ```python
 
@@ -483,7 +543,9 @@ with a little work to our setUp method...
 
 ```
 
-and some work to our tests to bring reality to theory...
+
+and some work to our tests to bring reality to our theories...
+
 
 ```python
 
@@ -503,7 +565,10 @@ and some work to our tests to bring reality to theory...
             
 ```
 
-we'll go back in and add some header to our form...
+
+...write some code to enable us to access the database from
+within our form...
+
 
 ```python
 
@@ -519,6 +584,7 @@ def email_exists(form, field):
         raise ValidationError('User with that email already exists.')
 ```
 
+
 and run our tests...
 
 But here's the thing. It didn't work. 
@@ -526,9 +592,12 @@ But here's the thing. It didn't work.
 I still couldn't get the tests to pass, and I'm pretty certain
 it's because I could never get the form to reference the mocked
 test database. Instead, the form is creating it's own database 
-and referencing that, which would be correct in a real world
+and referencing that, which would kind of be correct in a real world
 instance. I decided to scrap the mock database for now and 
-just use the real one...
+just use the real one (which is really our development db,
+but this setup still limits our ability to test production
+code...)
+
 
 ```python
 
@@ -654,8 +723,10 @@ if __name__ == '__main__':
         
 ```
 
+
 Using this implementation and running the tests gave us the
 passing tests we should have gotten before.
+
 
 ```
 (vpython)Nicolass-MacBook-Pro:GameProject nicolasjhampton$ coverage run _form_tests.py

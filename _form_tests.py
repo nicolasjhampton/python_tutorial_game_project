@@ -23,6 +23,13 @@ class FormTestCase(unittest.TestCase):
            for if form does/does not validate"""
         form = forms.RegistrationForm()
         return str(form.validate_on_submit())
+        
+    @setupTestApp.route('/login', methods=['POST'])
+    def sample_login_route():
+        """Mock route returns string of boolean value
+           for if form does/does not validate"""
+        form = forms.LoginForm()
+        return str(form.validate_on_submit())
 
     def setUp(self):
         """Connects to the database, creates tables, defines two sets of mock
@@ -43,6 +50,11 @@ class FormTestCase(unittest.TestCase):
             'password': 'password',
             'password2': 'password'
         }
+        # Data3 is mock login info 
+        self.data3 = {
+            'username': 'testUsername2',
+            'password': 'password'
+        }
         models.User.create_user(username=self.data2['username'],
                                 email=self.data2['email'],
                                 password=self.data2['password'])
@@ -57,6 +69,23 @@ class FormTestCase(unittest.TestCase):
     #####################
     # Error tests
     #####################
+    
+    def test_login_validation(self):
+        """Tests that valid login info comes back True"""
+        response = self.testApp.post('/login', data=self.data3)
+        assert 'True' in str(response.data)
+    
+    def test_login_username_validation(self):
+        """Tests that data is required for login's username field"""
+        self.data3['username'] = ''
+        response = self.testApp.post('/login', data=self.data3)
+        assert 'False' in str(response.data)
+        
+    def test_login_password_validation(self):
+        """Tests that data is required for login's password field"""
+        self.data3['password'] = ''
+        response = self.testApp.post('/login', data=self.data3)
+        assert 'False' in str(response.data)
 
     def test_username_min_length_validation(self):
         """Test that our form rejects usernames that are

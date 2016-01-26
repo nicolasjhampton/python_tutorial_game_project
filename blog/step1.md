@@ -2,9 +2,11 @@
 
 ### 1. ./tests.py, the first file 
 
-Now that we have an area for our tests in [tests.py](https://github.com/nicolasjhampton/python_tutorial_game_project/blob/766b977a2dfab5522dc5cae58d46f1c73a3849e4/tests.py), we need 
-to figure out what these user objects are going to look 
-like.
+I'm going to start this whole project with a tests in [tests.py](https://github.com/nicolasjhampton/python_tutorial_game_project/blob/766b977a2dfab5522dc5cae58d46f1c73a3849e4/tests.py).
+The test is going to define what code I write. Any User model that
+can't pass the tests I write is a model I can't end up with, thus
+I'm designing not for what I think is capable, but for what I expect
+my output to be. 
 
 We'll want to write a test to show a user can be made.
 I'm assuming we're going make a function called
@@ -34,15 +36,24 @@ will somehow evaluate to "True" for passing or "False" for
 not passing. Since I'm new to tests, I'm going to go with what I 
 always do when I'm new to something, my best guess.
 
+Things to remember about the unittest library
+
+- The class must inherit from the ```unittest.TestCase``` class
+
+- Each test has access to the class' ```self``` variable (useful later)
+
+- All unit tests must begin with "test" in the name for python's ```unittest``` module
+
 
 > <img alt="By New York : Underwood & Underwood, publishers (US-LOC) [Public domain], via Wikimedia Commons, https://commons.wikimedia.org/wiki/File%3ADunce_cap_from_LOC_3c04163u.png" src="our_fearless_leader.png" width="10%">
 > *<b>Things our fearless leader doesn't know yet...</b>*
 >
-> - The class must inherit from the ```unittest.TestCase``` class
->
-> - Each test has access to the class' ```self``` variable (useful later)
->
-> - All unit tests must begin with "test" in the name for python's ```unittest``` module
+> What I should be doing here is making sure the value error
+> is raised, not checking that it's not raised, and the syntax
+> is wrong here, but just follow along. I'm going to learn
+> from a lot of these foolish mistakes. Don't be afraid to 
+> make them.
+
             
 Now that we have a test for the model creation, let's make 
 the model in [models.py](https://github.com/nicolasjhampton/python_tutorial_game_project/blob/766b977a2dfab5522dc5cae58d46f1c73a3849e4/models.py) ... 
@@ -276,6 +287,9 @@ built in:
 > Vulcans, forming the United Federation Of Planets. Don't
 > worry now though, this all depends on Benjamin Sisko 
 > re-visiting the past in step 2...
+>
+> Also, this UnboundLocalError never gets thrown. Later I'll
+> merge the two errors together for better results.
 
 So, with a total of twelve tests, all now passing, I run
 ```coverage run tests.py``` and then ```coverage report``` 

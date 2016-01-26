@@ -32,16 +32,32 @@ class AppTestCase(unittest.TestCase):
             'password': 'password',
             'password2': 'password'
         }
+        self.login = {
+                'username': 'testUsername',
+                'password': 'password'
+            }
 
     #####################
     # GET method tests
     #####################
 
-    def test_register_url(self):
+    def test_register_page(self):
         """Test for a 200 status code from our registration's GET route"""
         with test_database(self.TEST_DB, (User,)):
             rv = self.app.get('/register')
+            self.assertIn("username", rv.get_data(as_text=True).lower())
+            self.assertIn("email", rv.get_data(as_text=True).lower())
+            self.assertIn("password", rv.get_data(as_text=True).lower())
+            self.assertIn("confirm password", rv.get_data(as_text=True).lower())
             self.assertEqual(rv.status_code, 200)
+            
+    def test_login_page(self):
+        """Test for a 200 status code from our registration's GET route"""
+        with test_database(self.TEST_DB, (User,)):
+            rv = self.app.get('/login')
+            self.assertIn("username", rv.get_data(as_text=True).lower())
+            self.assertIn("password", rv.get_data(as_text=True).lower())
+            self.assertEqual(rv.status_code, 200)        
 
     #####################
     # POST method tests
@@ -51,10 +67,37 @@ class AppTestCase(unittest.TestCase):
         """Test User creation through our POST route"""
         with test_database(self.TEST_DB, (User,)):
             rv = self.app.post('/register', data=self.data)
+            self.assertIn("login", rv.get_data(as_text=True).lower())
             self.assertEqual(User.select().count(), 1)
             self.assertEqual(User.get().username, 'testUsername')
             self.assertEqual(User.get().email, 'test@example.com')
             self.assertNotEqual(User.get().password, 'password')
+            self.assertEqual(rv.status_code, 302)
+
+    def test_login(self):
+        """Test User creation through our POST route"""
+        with test_database(self.TEST_DB, (User,)):
+            self.app.post('/register', data=self.data)
+            rv = self.app.post('/login', data=self.login)
+            # Need something to test login status
+            self.assertEqual(rv.status_code, 302)
+
+    def test_bad_username_login(self):
+        """Test User creation through our POST route"""
+        with test_database(self.TEST_DB, (User,)):
+            self.login['username'] = 'badusername'
+            self.app.post('/register', data=self.data)
+            rv = self.app.post('/login', data=self.login)
+            self.assertIn("login", rv.get_data(as_text=True).lower())
+            self.assertEqual(rv.status_code, 200)
+
+    def test_bad_email_login(self):
+        """Test User creation through our POST route"""
+        with test_database(self.TEST_DB, (User,)):
+            self.login['email'] = 'bademail@email.com'
+            self.app.post('/register', data=self.data)
+            rv = self.app.post('/login', data=self.login)
+            self.assertIn("login", rv.get_data(as_text=True).lower())
             self.assertEqual(rv.status_code, 302)
 
     def test_bad_username(self):

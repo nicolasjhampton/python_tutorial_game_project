@@ -6,7 +6,7 @@ likely forgot the "Flask Basics" course altogether, and
 are ready to make this project really freaking complex. I
 felt the same way, and was importing all kinds of 
 LoginManagers, making before and after request methods,
-and generally ignoring the test I spent all that time writing.
+and generally ignoring all the tests I spent all that time writing.
 
 So...what am I testing for?
 
@@ -15,7 +15,7 @@ So...what am I testing for?
 Oh, that's right. Well, how do you do that? Basically
 you receive a request at a url, and then send anything at 
 all back. This ain't rocket science. This is about as 
-simple as it gets. I'm going to 
+simple as it gets, and we want it to be. I'm going to 
 
 - Import the Flask class from the flask module, 
 
@@ -63,10 +63,9 @@ if __name__ == '__main__':
 
 ...and I actually managed to avoid giving away any
 direct code challenge answers, though if you haven't finished
-the code challenges that go with this, but you followed 
-me all the way here, you're doing something wrong, go back and
-take ["Flask Basics"](https://teamtreehouse.com/library/flask-basics/welcome-to-flask/first-steps). Most of what I'm doing here
-I learned from there.
+the code challenges that go with this by now, you're doing 
+something wrong, go back and take ["Flask Basics"](https://teamtreehouse.com/library/flask-basics/welcome-to-flask/first-steps). 
+Most of what I'm doing here I learned from there.
 
 And that is all it takes to get a 200 status code. We're
 not connected to a database or making posts or checking for
@@ -113,7 +112,9 @@ Oh, it's just the run line? Well, I think I can skip the run
 line. So, for all intensive purposes, we're starting with 
 a completely tested file. THAT'S why we're starting simple.
 
+
 ### 2. I think I saved a registration test for later, right?
+
 
 Yea, I think I did. While looking at Kenneth's tests for the
 tacocat project, this one test seemed like it bridged a lot
@@ -154,7 +155,20 @@ plan so far...
  
 - I'll design the database table that stores the user data (done)
 
-    * Winged it mostly (done)
+    1. I need to create and delete a User Table (done)
+        * I'll write 2 tests for this (done)
+            - Test that the User table exists (done)
+            - Test that the User table can be dropped  (done)
+    
+    3. I need to be able to create, retrieve, and delete User entries (done)
+        * I'll write a few tests for this (done)
+            - Test that User entries exist and can be recalled by username and email (done)
+            - Test that each entry is uniquely defined by a user_id (done)
+    
+    2. I need to preserve the integrity of the User Table (done)
+        * This will involve testing values and possible errors (done)
+            - Test that passwords are stored, hashed, and comparable (done)
+            - Test that errors are thrown for data limits (done)
 
 - Then I can add login,logout, and password hash information to that database (mostly done)
 
@@ -182,6 +196,7 @@ plan so far...
 
 I'm a little lost here for two reasons. One is that I have 
 some tasks in the wrong place. Let's fix that first...
+
 
 - By then, I can build the flask server that will serve our first route... (Uh, yeah, sure, let's do this)
 
@@ -238,10 +253,10 @@ Also, we forgot about forms...
 
 
 There, we added forms to our plan. Don't ask me how we're going to 
-test them independently and for what yet, because I don't really
-know yet. But we're going to write tests for them, then we're going
-to navigate safely through the asteroid field, just don't tell
-me the odds and shut that droid up.
+test them independently or what we're testing for yet, because I 
+don't really know. But we're going to write tests for them, then 
+we're going to navigate safely through the asteroid field.
+Don't tell me the odds and shut that droid up.
 
 
 ### Episode 4 - A New Route...
@@ -287,6 +302,7 @@ days. In this case, this was a 3 second fix: I named 2 route
 functions with the same name. So when I ran tests on the quick 
 change...
 
+
 ```python
 
 @app.route('/register', methods=['GET'])
@@ -300,6 +316,7 @@ def post_registration():
 ```
 
 I received this failure instead...
+
 
 ```
 (vpython)Nicolass-MacBook-Pro:GameProject nicolasjhampton$ coverage run _server_tests.py
@@ -318,6 +335,7 @@ Ran 2 tests in 0.747s
 FAILED (failures=1)
 ```
 
+
 OUTSTANDING! Not only are we back to failing tests, but we 
 know exactly where to look for our failure: An incorrect 
 status code response! The test got a 200 response instead of
@@ -325,6 +343,7 @@ a 302. Great, we can fix that!
 
 
 ### 5. Wait, what the heck do those numbers mean?
+
 
 ...and why was Kenneth testing for a 302 instead of a good ol'
 200 OK? ([A list of status codes](https://en.wikipedia.org/wiki/List_of_HTTP_status_codes), you're welcome)
@@ -337,6 +356,7 @@ get route. I'll do the same thing later, but for right now, I just
 want to make sure I can post successfully, without a redirect, so
 I'm going to change the test to check for a 200 status code for
 now, run it again, and...
+
 
 ```
 (vpython)Nicolass-MacBook-Pro:GameProject nicolasjhampton$ coverage run _server_tests.py
@@ -355,8 +375,11 @@ Ran 2 tests in 0.240s
 FAILED (failures=1)
 ```
 
+
 Oh yeah, for the time being, let's forget about the location check 
 too...
+
+
 
 ```
 (vpython)Nicolass-MacBook-Pro:GameProject nicolasjhampton$ coverage run _server_tests.py
@@ -366,6 +389,7 @@ Ran 2 tests in 0.153s
 
 OK
 ```
+
 
 Looks great! And coverage report says the [server.py](https://github.com/nicolasjhampton/python_tutorial_game_project/blob/cb14fba931e43fcfcf12e4faf7e10a42a16e73d7/server.py) file is at 91%
 coverage with the new [_server_test.py](https://github.com/nicolasjhampton/python_tutorial_game_project/blob/cb14fba931e43fcfcf12e4faf7e10a42a16e73d7/_server_tests.py). Great! That is, if we're 

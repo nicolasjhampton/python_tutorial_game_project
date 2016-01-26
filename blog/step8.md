@@ -3,20 +3,23 @@
 (1/21/16) From here, we've assembled all the parts that go into what 
 the user can't see: The database, the server, and the form
 validation. Before we break out and introduce ourselves to
-the world wide bweb, however, I'd like to take a quick look
+the world wide web, however, I'd like to take a quick look
 back and line a few things up to really make everything as
 crystal clear as possible. Taking this little time for
 detail work will, I think, bring us to a depth of understanding
 that can easily translate to Django, Node, or any other
 similar stack we run across. 
 
+
 ### 1. [models.py](https://github.com/nicolasjhampton/python_tutorial_game_project/blob/a9e898265bf842cca5df7b75a3ba5e4756a582d4/models.py) and [_model_tests.py](https://github.com/nicolasjhampton/python_tutorial_game_project/blob/4e601ceb45802f2f44a08ca44289c5dc6fe1bf2b/_model_tests.py)
+
 
 In [Step 3, part 4, The UserMixin](https://github.com/nicolasjhampton/python_tutorial_game_project/blob/master/blog/step3.md#4-the-usermixin), we made our User class inherit 
 from the UserMixin class in order to gain login / logout 
 functionality. As of now, we still haven't implemented logging
 in and out, however. Removing the UserMixin class entirely 
 results in only one test failing,  
+
 
 ```
 (vpython)Nicolass-MacBook-Pro:GameProject nicolasjhampton$ python _model_tests.py
@@ -33,6 +36,7 @@ AssertionError
 ----------------------------------------------------------------------
 Ran 17 tests in 8.886s
 ```
+
 
 ...and the only reason this test fails without UserMixin is
 the value get_id() returns is converted to a string in the
@@ -52,8 +56,6 @@ then added a truthy expression using ```re.match``` in our username
 check method on the database.
 
 
-
-
 ### 2. [forms.py](https://github.com/nicolasjhampton/python_tutorial_game_project/blob/a9e898265bf842cca5df7b75a3ba5e4756a582d4/forms.py) and [_form_tests.py](https://github.com/nicolasjhampton/python_tutorial_game_project/blob/a9e898265bf842cca5df7b75a3ba5e4756a582d4/_form_tests.py)
 
 
@@ -64,6 +66,7 @@ some labels and spacing, and moved on...
 
 
 ### 3. [server.py](https://github.com/nicolasjhampton/python_tutorial_game_project/blob/a9e898265bf842cca5df7b75a3ba5e4756a582d4/server.py) and [_server_tests.py](https://github.com/nicolasjhampton/python_tutorial_game_project/blob/a9e898265bf842cca5df7b75a3ba5e4756a582d4/_server_tests.py)
+
 
 Same thing as forms, however I'm about to make major changes to these
 files, so I just added some comments and docstrings here, deleted
@@ -78,8 +81,10 @@ Our current [server.py](https://github.com/nicolasjhampton/python_tutorial_game_
 
 ### 4. PEP8
 
+
 Going back to Kenneth's "Write Better Python" [PEP8 class](https://teamtreehouse.com/library/write-better-python/cleaner-code/pep-8), I 
 decided to run ```flake8 models.py```, and see what happened...
+
 
 ```
 (vpython)Nicolass-MacBook-Pro:GameProject nicolasjhampton$ flake8 models.py
@@ -110,6 +115,7 @@ models.py:72:1: W293 blank line contains whitespace
 models.py:77:21: W292 no newline at end of file
 ```
 
+
 Ok, so at this point I ran flake8 against all 6 of my scripts
 to really get this code clean before moving on. Some of the things
 it catches, like the blanket peewee import, are things I'll 
@@ -117,6 +123,7 @@ keep in spite of PEP8, because it's common convention or just
 works better the way it is. Ya know, don't go PEP8 crazy, but
 try to keep things clean. After I cleaned up, this is what 
 flake8 caught...
+
 
 ```
 (vpython)Nicolass-MacBook-Pro:GameProject nicolasjhampton$ flake8 models.py
@@ -131,9 +138,11 @@ _form_tests.py:2:1: F403 'from peewee import *' used; unable to detect undefined
 _server_tests.py:1:1: F403 'from peewee import *' used; unable to detect undefined names
 ```
 
+
 P.S. - Once you're done using ```flake8```, make sure you do one 
 more test run on everything, just to make sure you didn't break
 something to make it look pretty...
+
 
 ```
 (vpython)Nicolass-MacBook-Pro:GameProject nicolasjhampton$ coverage run _model_tests.py
@@ -156,6 +165,7 @@ Ran 2 tests in 0.519s
 OK
 ```
 
+
 And after all that...
 
 Our current [models.py](https://github.com/nicolasjhampton/python_tutorial_game_project/blob/cce677870e17c6c0bf3a03663aa3cdc0808b76c7/models.py) and [_model_tests.py](https://github.com/nicolasjhampton/python_tutorial_game_project/blob/cce677870e17c6c0bf3a03663aa3cdc0808b76c7/_model_tests.py) files. 
@@ -164,11 +174,12 @@ Our current [forms.py](https://github.com/nicolasjhampton/python_tutorial_game_p
 
 Our current [server.py](https://github.com/nicolasjhampton/python_tutorial_game_project/blob/cce677870e17c6c0bf3a03663aa3cdc0808b76c7/server.py) and [_server_tests.py](https://github.com/nicolasjhampton/python_tutorial_game_project/blob/cce677870e17c6c0bf3a03663aa3cdc0808b76c7/_server_tests.py) files.
 
+
 And with these files, moving forward, coverage reports...(These are 
 composite results from three different reports) 
 
-```
 
+```
 Name                                                       Stmts   Miss  Cover
 ------------------------------------------------------------------------------
 models.py                                                     42      2    95%
@@ -177,11 +188,13 @@ forms.py                                                      15      0   100%
  
 ```
 
+
 There, all clean. Now let's work on bringing the database, form
 and routes all together in our server.py file...
 
 
 ### 5. Bringing the backend all together...
+ 
  
 Going back to our overall plan since we laid it out 
 [the form's connection with the database](https://github.com/nicolasjhampton/python_tutorial_game_project/blob/master/blog/step7.md#2-how-does-a-form-work-with-the-database), let's fill out a
@@ -258,6 +271,7 @@ four cases, the User count should remain at 0 and the status
 coded be 200, as we'll return to our /register route's 
 render_template (or text) command. 
 
+
 ```python
 def test_registration(self):
         """Test User creation through our POST route"""
@@ -304,10 +318,12 @@ def test_registration(self):
 
 ```
 
+
 These all failed properly, then I rewrote and refactored both
 POST and GET methods on the /register route into one function.
 I started them as two separate routes for clarity, but now
 they seem to work well together. 
+
 
 ```python
 
@@ -324,6 +340,7 @@ def post_registration():
     
 ```
 
+
 With these changes, all 6 server tests pass, and we can check off
 a few more items on our master plan...
 
@@ -337,6 +354,6 @@ And now we have two modified files, [server.py](https://github.com/nicolasjhampt
             
             
 Let's move on to breaking out of the backend and into the frontend
-in [step 9](https://github.com/nicolasjhampton/python_tutorial_game_project/blob/master/blog/step8.md) 
+in [step 9](https://github.com/nicolasjhampton/python_tutorial_game_project/blob/master/blog/step9.md) 
 
 

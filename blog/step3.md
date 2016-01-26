@@ -117,6 +117,7 @@ the rest on the way.
 > learning a ton of stuff I didn't know before. I've learned more 
 > wearing this hat than most others have trying to avoid it.
 
+
 I don't, however, have much of an idea what type of variable
 to expect for the user ID. I do, however, know that once again,
 it's likely to be a property on the ```User``` model. However,
