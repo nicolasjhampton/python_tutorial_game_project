@@ -14,7 +14,7 @@
             </div>
             <div id="mainPage">
                 <div id="sideMenu">
-                    <p class="sideMenu">Welcome Warrior!</p>
+                    <p class="sideMenu">Welcome{% if current_user.is_authenticated %} {{ current_user.username }}{% endif %}!</p>
                 </div>
                 <div id="main">
                     {% block content %}{% endblock %}

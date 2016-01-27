@@ -57,7 +57,15 @@ class AppTestCase(unittest.TestCase):
             rv = self.app.get('/login')
             self.assertIn("username", rv.get_data(as_text=True).lower())
             self.assertIn("password", rv.get_data(as_text=True).lower())
-            self.assertEqual(rv.status_code, 200)        
+            self.assertEqual(rv.status_code, 200)   
+            
+    def test_logout_page(self):
+        """Test for a 200 status code from our logout route"""
+        with test_database(self.TEST_DB, (User,)):
+            rv = self.app.get('/logout')
+            self.assertEqual(rv.status_code, 302)
+            with self.app.session_transaction() as sess:
+                assert 'user_id' not in sess
 
     #####################
     # POST method tests
@@ -79,8 +87,9 @@ class AppTestCase(unittest.TestCase):
         with test_database(self.TEST_DB, (User,)):
             self.app.post('/register', data=self.data)
             rv = self.app.post('/login', data=self.login)
-            # Need something to test login status
             self.assertEqual(rv.status_code, 302)
+            with self.app.session_transaction() as sess:
+                assert 'user_id' in sess
 
     def test_bad_username_login(self):
         """Test User creation through our POST route"""

@@ -57,11 +57,6 @@ class UserTableTests(unittest.TestCase):
         """Tests that a User entry can be recalled by email"""
         self.assertEqual(self.user.username, 'testUsername')
 
-    # def test_password(self):
-    #     """Tests that a User entry can be recalled by email"""
-    #     user = models.User.get(username="testUsername")
-    #     self.assertEqual(user.password, 'testPassword')
-
     def test_password_hashed(self):
         """Tests that any recalled password is not
            equal to the original password text (assumed hashed)"""
@@ -81,28 +76,9 @@ class UserTableTests(unittest.TestCase):
         assert 'get_id' in dir(self.user)
 
     def test_get_id_result(self):
-        """Tests that a User entry's get_id method returns the user id"""
-        assert self.user.id == self.user.get_id()
-
-    # def test_get_id_result(self):
-    #     """Tests that a User entry's get_id method returns
-    #        the user id in string format for flask-login to use"""
-    #     assert str(self.user.id) == self.user.get_id()
-
-    # def test_login_property_exists(self):
-    #     """Tests that a User entry is created with a login property"""
-    #     user = models.User.get(email='testEmail@testEmail.com')
-    #     assert 'loggedin' in dir(user)
-
-    # def test_login_property_truthy(self):
-    #     """Tests that the login property is either True or False"""
-    #     user = models.User.get(email='testEmail@testEmail.com')
-    #     assert user.loggedin in [True, False]
-
-    # def test_user_id_property_exists(self):
-    #     """Tests that a User entry is created with a user_id property"""
-    #     user = models.User.get(email='testEmail@testEmail.com')
-    #     assert 'user_id' in dir(user)
+        """Tests that a User entry's get_id method returns
+           the user id in string format for flask-login to use"""
+        assert str(self.user.id) == self.user.get_id()
 
     #####################
     # Error tests
